@@ -21,22 +21,22 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 
 <template>
     <GuestLayout>
-        <Head title="Email Verification" />
+        <Head title="Potvrzení e-mailu" />
 
         <div class="mb-4 text-sm text-gray-600">
-            Thanks for signing up! Before getting started, could you verify your email address by clicking on the link
-            we just emailed to you? If you didn't receive the email, we will gladly send you another.
+            Děkujeme za přihlášení! Než začnete, můžete ověřit svou e-mailovou adresu kliknutím na odkaz
+             právě jsme vám poslali e-mail? Pokud jste email neobdrželi, rádi Vám zašleme další.
+
         </div>
 
         <div class="mb-4 font-medium text-sm text-green-600" v-if="verificationLinkSent">
-            A new verification link has been sent to the email address you provided during registration.
+Na e-mailovou adresu, kterou jste uvedli při registraci, byl odeslán nový ověřovací odkaz.
         </div>
 
         <form @submit.prevent="submit">
             <div class="mt-4 flex items-center justify-between">
                 <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Resend Verification Email
-                </PrimaryButton>
+            Opětovné zaslání ověřovacího e-mailu                </PrimaryButton>
 
                 <Link
                     :href="route('logout')"
