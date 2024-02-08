@@ -11,6 +11,7 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
+    is_Organizator: false,
 });
 
 const submit = () => {
@@ -55,6 +56,18 @@ const submit = () => {
 
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
+
+<div class="mt-2">
+    <label for="is_Organizator" class="inline-flex items-center">
+        <input
+            type="checkbox"
+            id="is_Organizator"
+            v-model="form.is_Organizator"
+            class="form-checkbox h-5 w-5 text-indigo-600 rounded"
+        />
+        <span class="ml-2">Jste Organizátor?</span>
+    </label>
+</div>
 
             <div class="mt-4">
                 <InputLabel for="password" value="Heslo" />
