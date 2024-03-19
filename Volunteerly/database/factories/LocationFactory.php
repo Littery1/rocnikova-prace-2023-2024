@@ -19,12 +19,13 @@ class LocationFactory extends Factory
    $countries = ['Czech Republic', 'Slovakia'];
 
         return [
-            'street' => $this->faker->streetAddress,
+            'street' => $this->faker->streetName, 
             'city' => $this->faker->city,
+            'district' => null,
             'postal_code' => $this->faker->postcode,
-            'country' => $this->faker->randomElement($countries),
-            'latitude' => $this->faker->latitude($min = 47, $max = 51), // Latitude range for Czech Republic and Slovakia
-            'longitude' => $this->faker->longitude($min = 12, $max = 23), // Longitude range for Czech Republic and Slovakia
+            'country' => 'Czech Republic', 
+            'latitude' => $this->faker->latitude($min = 47, $max = 51), 
+            'longitude' => $this->faker->longitude($min = 12, $max = 23), 
         ];
     }
 }
