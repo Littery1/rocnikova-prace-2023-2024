@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->foreign(['location_id'], 'events_location_id_fkey')->references(['id'])->on('location');
+            $table->foreign(['location_id'], 'events_location_id_fkey')->references(['id'])->on('locations');
         });
     }
 
