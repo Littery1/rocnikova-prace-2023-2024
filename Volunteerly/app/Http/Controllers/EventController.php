@@ -25,7 +25,7 @@ class EventController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'dateStart' => 'required|date',
-            'dateEnd' => 'required|date',
+            'dateEnd' => 'required|date|after:dateStart',
             'location_id' => 'required|exists:locations,id'
         ]);
 
@@ -46,7 +46,7 @@ class EventController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'dateStart' => 'required|date',
-            'dateEnd' => 'required|date',
+            'dateEnd' => 'required|date|after:dateStart',
             'location_id' => 'required|exists:locations,id'
         ]);
 
