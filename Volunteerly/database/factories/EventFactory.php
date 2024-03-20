@@ -18,23 +18,14 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
-        $event = Event::create([
+        return [
             'name' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
-            'dateStart' => $this->faker->dateTimeBetween('-1 month', '+1 month'),
+            'dateStart'=> $this->faker->dateTimeBetween('-1 month', '+1 month'),
             'dateEnd' => $this->faker->dateTimeBetween('+1 month', '+12 months'),
-        ]);
-
-        $event->update(['location_id' => $event->id]);
-
-        return [
-            'name' => $event->name,
-            'description' => $event->description,
-            'dateStart' => $event->dateStart,
-            'dateEnd' => $event->dateEnd,
-            'created_at' => $event->created_at,
-            'updated_at' => $event->updated_at,
-            'location_id' => $event->location_id,
+            'created_at' => now(),
+            'updated_at' => now(),
+            'location_id' => null,
         ];
     }
 }
