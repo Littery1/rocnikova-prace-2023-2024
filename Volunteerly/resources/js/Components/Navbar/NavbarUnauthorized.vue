@@ -7,7 +7,7 @@
   <nav class=" top-0 left-0 right-0 z-10 bg-white border-gray-200 dark:bg-gray-900"  style="background-color: #111827;">
     <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4">
       <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="/images/Logo.png" class="h-14" alt="Flowbite Logo" />
+        <img src="/images/Logo.png" class="h-14" alt="Volunteerly Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Volunteerly</span>
       </a>
       <button

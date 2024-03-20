@@ -1,7 +1,8 @@
 <template>
-<GoogleMap api-key="AIzaSyCuySxXKOO2mEh-y-08bR-va8iOdAu6Y_M" style="width:100%;height: 80vh" :zoom="7.71" :center="center">
+    <GoogleMap api-key="AIzaSyAPH2-HtObKLcm-wKahot1g8J0N0Ks8DA4" style="width:100%;height: 80vh" :zoom="7.71"
+        :center="center">
 
-</GoogleMap>
+    </GoogleMap>
 </template>
 
 <script>
