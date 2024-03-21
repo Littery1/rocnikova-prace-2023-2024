@@ -2,8 +2,6 @@
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import { ref } from 'vue';
-import Modal from '@/Components/Modal.vue';
 import FormMyActions from '../Components/FormMyActions.vue';
 
 
@@ -23,5 +21,6 @@ import FormMyActions from '../Components/FormMyActions.vue';
             <FormMyActions/>
 
         </div>
+        
     </AuthenticatedLayout>
 </template>

@@ -1,4 +1,13 @@
-<script>
+<script setup>
+import { ref } from 'vue';
+import { FwbButton, FwbModal } from 'flowbite-vue'
+import ModalWindow from './ModalWindow.vue';
+
+const showModal = ref(false);
+
+const toggleModal = () => {
+    showModal.value = !showModal.value;
+};
 
 </script>
 <template>
@@ -28,7 +37,11 @@
                                             placeholder="Vyberte bod na mapě" required="">
                                         <img src="/images/SearchMapsLogo.png" alt="SearchMapsLogo"
                                             class="absolute right-3 bottom-2 h-6 w-6 cursor-pointer"
-                                            >
+                                            @click="toggleModal">
+                                        <ModalWindow :isShowModal="showModal"
+                                            @update:isShowModal="showModal = $event">
+                                            <!-- Modal content goes here -->
+                                        </ModalWindow>
                                     </div>
 
                                 </div>
