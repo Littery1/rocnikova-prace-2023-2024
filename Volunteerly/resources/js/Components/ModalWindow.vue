@@ -1,30 +1,23 @@
 <template>
-
-
     <fwb-modal v-if="isShowModal" @close="closeModal">
+
         <template #header>
             <div class="flex items-center text-lg">
-                Terms of Service
+                Vyberte Místo na mapě kde se bude konat Vaše akce
             </div>
         </template>
         <template #body>
-            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                With less than a month to go before the European Union enacts new consumer privacy laws for its
-                citizens, companies around the world are updating their terms of service agreements to comply.
-            </p>
-            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is
-                meant to ensure a common set of data rights in the European Union. It requires organizations to notify
-                users as soon as possible of high-risk data breaches that could personally affect them.
-            </p>
+
+            <SearchBarMap @location-selected="handleLocationSelected"></SearchBarMap>
+
         </template>
         <template #footer>
             <div class="flex justify-between">
                 <fwb-button @click="closeModal" color="alternative">
-                    Decline
+                    Zrušit
                 </fwb-button>
                 <fwb-button @click="closeModal" color="green">
-                    I accept
+                    Potvrdit
                 </fwb-button>
             </div>
         </template>
@@ -35,6 +28,7 @@
 import { ref } from 'vue'
 import { FwbButton, FwbModal } from 'flowbite-vue'
 import { defineProps, defineEmits } from 'vue';
+import SearchBarMap from './Maps/SearchBarMap.vue';
 
 const props = defineProps({
     isShowModal: {
@@ -52,4 +46,19 @@ function closeModal() {
 function showModal() {
     emits('update:isShowModal', true);
 }
+
+const locationDetails = ref({
+    city: null,
+    district: null,
+    street: null,
+    latitude: null,
+    longitude: null,
+});
+
+const handleLocationSelected = (details) => {
+    locationDetails.value = { ...details };
+    console.log('Location details:', locationDetails.value);
+};
+
+
 </script>
