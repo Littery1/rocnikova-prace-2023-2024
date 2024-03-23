@@ -1,6 +1,5 @@
 <template>
     <fwb-modal v-if="isShowModal" @close="closeModal">
-
         <template #header>
             <div class="flex items-center text-lg">
                 Vyberte Místo na mapě kde se bude konat Vaše akce
@@ -8,7 +7,8 @@
         </template>
         <template #body>
 
-            <SearchBarMap @location-selected="handleLocationSelected"></SearchBarMap>
+            <SearchBarMap @location-selected="handleLocationSelected">
+            </SearchBarMap>
 
         </template>
         <template #footer>
@@ -16,7 +16,7 @@
                 <fwb-button @click="closeModal" color="alternative">
                     Zrušit
                 </fwb-button>
-                <fwb-button @click="closeModal" color="green">
+                <fwb-button  @click="confirmLocation" color="green">
                     Potvrdit
                 </fwb-button>
             </div>
@@ -25,9 +25,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { defineProps, defineEmits, defineComponent, ref, onMounted } from 'vue'
 import { FwbButton, FwbModal } from 'flowbite-vue'
-import { defineProps, defineEmits } from 'vue';
 import SearchBarMap from './Maps/SearchBarMap.vue';
 
 const props = defineProps({
@@ -37,7 +36,7 @@ const props = defineProps({
     },
 });
 
-const emits = defineEmits(['update:isShowModal']);
+const emits = defineEmits(['update:isShowModal', 'confirmLocation']);
 
 function closeModal() {
     emits('update:isShowModal', false);
@@ -49,7 +48,7 @@ function showModal() {
 
 const locationDetails = ref({
     city: null,
-    district: null,
+    province: null,
     street: null,
     latitude: null,
     longitude: null,
@@ -57,8 +56,11 @@ const locationDetails = ref({
 
 const handleLocationSelected = (details) => {
     locationDetails.value = { ...details };
-    console.log('Location details:', locationDetails.value);
 };
 
+const confirmLocation = () => {
+    closeModal();
+     emits('confirmLocation', locationDetails.value);
+};
 
 </script>

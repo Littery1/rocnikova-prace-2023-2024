@@ -33,12 +33,15 @@ export default defineComponent({
             const longitude = event.latLng.lng();
             const geocoder = new google.maps.Geocoder();
 
-            geocoder.geocode({ location: event.latLng }, (results, status) => {
+            geocoder.geocode({ location: event.latLng, language: 'cs' }, (results, status) => {
                 if (status === 'OK') {
                     if (results[0]) {
                         const addressComponents = results[0].address_components;
-                        const city = addressComponents.find(component => component.types.includes('locality'))?.long_name || '';
-                        const district = addressComponents.find(component => component.types.includes('administrative_area_level_2'))?.long_name || '';
+                        // Find the province in the address components
+                        const provinceComponent = addressComponents.find(component => component.types.includes('administrative_area_level_1')) ||
+                            addressComponents.find(component => component.types.includes('administrative_area_level_2'));
+                        const province = provinceComponent?.long_name || '';
+                        const city = addressComponents.find(component => component.types.includes('administrative_area_level_2'))?.long_name || '';
                         const street = addressComponents.find(component => component.types.includes('route'))?.long_name || '';
 
                         // If there's already a marker, remove it from the map
@@ -50,16 +53,17 @@ export default defineComponent({
                         marker = new google.maps.Marker({
                             position: event.latLng,
                             map: map,
-                            title: `${city}, ${district}, ${street}`, // Set marker title with location details
+                            title: `${city}, ${province}, ${street}`, // Set marker title with location details
                         });
                         // Emit event containing location details
                         emit('location-selected', {
                             city,
-                            district,
+                            province,
                             street,
                             latitude,
                             longitude,
                         });
+                        console.log("mesto: " + city + " kraj: " + province + " ulice: " + street + " souradnice: " + latitude, longitude);
                     } else {
                         console.error('No results found');
                     }

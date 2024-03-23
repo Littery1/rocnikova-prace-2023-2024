@@ -1,13 +1,30 @@
 <script setup>
 import { ref } from 'vue';
-import { FwbButton, FwbModal } from 'flowbite-vue'
 import ModalWindow from './ModalWindow.vue';
+
 
 const showModal = ref(false);
 
 const toggleModal = () => {
     showModal.value = !showModal.value;
 };
+
+
+const form = ref({
+    name: '',
+    coordinates: '',
+    province: '',
+    street: '',
+    city: '',
+});
+const handleLocationSelected = (details) => {
+    form.value.coordinates = `${details.latitude}, ${details.longitude}`;
+    form.value.province = details.province;
+    form.value.street = details.street;
+    form.value.city = details.city;
+    console.log(details);
+};
+
 
 </script>
 <template>
@@ -22,7 +39,7 @@ const toggleModal = () => {
                                 <div class="sm:col-span-2">
                                     <label for="name"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Název</label>
-                                    <input type="text" name="name" id="name"
+                                    <input type="text" name="name" id="name" v-model="form.name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Napište název Vaší akce" required="">
                                 </div>
@@ -32,15 +49,15 @@ const toggleModal = () => {
                                         Souřadnice
                                     </label>
                                     <div class="flex items-center">
-                                        <input type="text" name="coordinates" id="coordinates" readonly
+                                        <input type="text" name="coordinates" id="coordinates"
+                                            v-model="form.coordinates" readonly
                                             class="flex-grow bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             placeholder="Vyberte bod na mapě" required="">
                                         <img src="/images/SearchMapsLogo.png" alt="SearchMapsLogo"
                                             class="absolute right-3 bottom-2 h-6 w-6 cursor-pointer"
                                             @click="toggleModal">
-                                        <ModalWindow :isShowModal="showModal"
+                                        <ModalWindow @confirmLocation="handleLocationSelected" :isShowModal="showModal"
                                             @update:isShowModal="showModal = $event">
-                                            <!-- Modal content goes here -->
                                         </ModalWindow>
                                     </div>
 
@@ -48,21 +65,21 @@ const toggleModal = () => {
                                 <div class="w-full">
                                     <label for="province"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kraj</label>
-                                    <input type="text" name="province" id="province"
+                                    <input type="text" name="province" id="province" v-model="form.province"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Kraj" required="">
                                 </div>
                                 <div class="w-full">
                                     <label for="street"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ulice</label>
-                                    <input type="text" name="street" id="street"
+                                    <input type="text" name="street" id="street" v-model="form.street"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Kraj" required="">
+                                        placeholder="Ulice" required="">
                                 </div>
                                 <div class="w-full">
                                     <label for="city"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Město</label>
-                                    <input type="text" name="city" id="city"
+                                    <input type="text" name="city" id="city" v-model="form.city"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Město" required="">
                                 </div>

@@ -25,7 +25,8 @@ class EventFactory extends Factory
             'dateEnd' => $this->faker->dateTimeBetween('+1 month', '+12 months'),
             'created_at' => now(),
             'updated_at' => now(),
-            'location_id' => null,
+            'locations_id' => null,
+            'users_id' => null,
         ];
     }
 }

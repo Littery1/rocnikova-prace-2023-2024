@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->foreign(['location_id'], 'events_location_id_fkey')->references(['id'])->on('locations');
+            $table->foreign(['locations_id'], 'events_locations_id_fkey')->references(['id'])->on('locations');
+            $table->foreign(['users_id'], 'events_users_id_fkey')->references(['id'])->on('users');
         });
     }
 
@@ -26,7 +27,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->dropForeign('events_location_id_fkey');
+            $table->dropForeign('events_locations_id_fkey');
+            $table->dropForeign('events_users_id_fkey');
         });
     }
 };

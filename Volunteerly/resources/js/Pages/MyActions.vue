@@ -1,13 +1,3 @@
-<script setup>
-
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import FormMyActions from '../Components/FormMyActions.vue';
-
-
-
-</script>
-
 <template>
 
     <Head title="Přehled" />
@@ -18,9 +8,12 @@ import FormMyActions from '../Components/FormMyActions.vue';
         </template>
 
         <div class="py-12">
-            <FormMyActions/>
-
+           <FormMyActions />
         </div>
-        
     </AuthenticatedLayout>
 </template>
+<script setup>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Head } from '@inertiajs/vue3';
+import FormMyActions from '../Components/FormMyActions.vue';
+</script>

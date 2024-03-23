@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->bigIncrements('id')->unique('location_key2');
             $table->string('city', 100);
-            $table->string('district');
-            $table->string('street');
-            $table->decimal('latitude', 9, 7);
-            $table->decimal('longitude', 9, 7);
+            $table->string('province');
+            $table->string('street')->nullable();
+            $table->point('coordinates');
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
         });
