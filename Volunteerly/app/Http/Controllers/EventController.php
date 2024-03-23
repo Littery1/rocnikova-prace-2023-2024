@@ -20,13 +20,15 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+         dd($request->all());
         // Validate input
         $validatedData = $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
             'dateStart' => 'required|date',
             'dateEnd' => 'required|date|after:dateStart',
-            'location_id' => 'required|exists:locations,id'
+            'locations_id' => 'required|exists:locations,id',
+            'users_id' => 'required|exists:users,id',
         ]);
 
         Event::create($validatedData);
@@ -47,7 +49,8 @@ class EventController extends Controller
             'description' => 'required|string',
             'dateStart' => 'required|date',
             'dateEnd' => 'required|date|after:dateStart',
-            'location_id' => 'required|exists:locations,id'
+            'locations_id' => 'required|exists:locations,id',
+            'users_id' => 'required|exists:users,id',
         ]);
 
         $event->update($validatedData);

@@ -13,7 +13,8 @@ export default defineComponent({
         const loader = new Loader({
             apiKey: "AIzaSyAPH2-HtObKLcm-wKahot1g8J0N0Ks8DA4",
             version: "weekly",
-            libraries: ["places"]
+            libraries: ["places"],
+            language: "cs"
         });
 
         onMounted(async () => {
@@ -63,7 +64,6 @@ export default defineComponent({
                             latitude,
                             longitude,
                         });
-                        console.log("mesto: " + city + " kraj: " + province + " ulice: " + street + " souradnice: " + latitude, longitude);
                     } else {
                         console.error('No results found');
                     }

@@ -45,4 +45,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('events', EventController::class);
 Route::resource('locations', LocationController::class);
 
+
+Route::post('/events', [EventController::class, 'store'])->name('events.store');
+Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
+
 require __DIR__ . '/auth.php';
