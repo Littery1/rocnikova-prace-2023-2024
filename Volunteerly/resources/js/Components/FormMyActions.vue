@@ -1,10 +1,21 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import ModalWindow from './ModalWindow.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
-
+import DatePicker from './DatePicker.vue';
+import flatpickr from 'flatpickr';
+import { Czech } from 'flatpickr/dist/l10n/cs.js';
+import 'flatpickr/dist/themes/light.css';
 
 const showModal = ref(false);
+
+onMounted(() => {
+    flatpickr(".flatpickr", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        locale: Czech,
+        theme: "light",
+    });
+});
 
 const toggleModal = () => {
     showModal.value = !showModal.value;
@@ -29,23 +40,20 @@ const handleLocationSelected = (details) => {
 };
 
 const handleSubmit = () => {
-    Post::create([
-        // code here
-        'name' => $request->name,
-    ]);
-    // const eventData = {
-    //     name: form.value.name,
-    //     description: form.value.description,
-    //     dateStart: form.value.dateStart,
-    //     dateEnd: form.value.dateEnd,
-    // };
 
-    // const locationData = {
-    //     city: form.value.city,
-    //     province: form.value.province,
-    //     street: form.value.street,
-    //     coordinates: form.value.coordinates,
-    // };
+    const eventData = {
+        name: form.value.name,
+        description: form.value.description,
+        dateStart: form.value.dateStart,
+        dateEnd: form.value.dateEnd,
+    };
+
+    const locationData = {
+        city: form.value.city,
+        province: form.value.province,
+        street: form.value.street,
+        coordinates: form.value.coordinates,
+    };
     // Inertia.post(route('events.store'), { eventData });
     // Inertia.post(route('locations.store'), { locationData });
 };
@@ -121,8 +129,8 @@ const handleSubmit = () => {
                                                     clip-rule="evenodd"></path>
                                             </svg>
                                         </div>
-                                        <input datepicker datepicker-autohide v-model="form.dateStart" type="text"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-3 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        <input v-model="form.dateStart" type="text"
+                                            class=" flatpickr bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-3 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Zadejte začátek akce">
                                     </div>
                                 </div>
@@ -142,7 +150,7 @@ const handleSubmit = () => {
                                             </svg>
                                         </div>
                                         <input datepicker datepicker-autohide v-model="form.dateEnd" type="text"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-3 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            class="flatpickr bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-3 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Zadejte konec akce">
                                     </div>
                                 </div>
