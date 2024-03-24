@@ -1,6 +1,20 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
-import Navbar from '@/Components/Navbar/NavbarUnauthorized.vue';
+import { Head, Link, usePage } from '@inertiajs/vue3';
+import NavbarUnauthorized from '@/Components/Navbar/NavbarUnauthorized.vue';
+import NavbarAuthorized from '@/Components/Navbar/NavbarAuthorized.vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const isAuthenticated = ref(false);
+
+onMounted(async () => {
+    try {
+        const response = await axios.get('/api/authenticated');
+        isAuthenticated.value = response.data.authenticated;
+    } catch (error) {
+        console.error('Error fetching authentication state:', error);
+    }
+});
 
 defineProps({
     canLogin: {
@@ -19,18 +33,18 @@ defineProps({
     }
 });
 
+
 </script>
 
 <template>
-    <Head title="Welcome"/>
-    
-     <link rel="icon" href="/Volunteerly/public/images/Logo.png" type="image/png">
-   
-         <Navbar />
 
-    <div
-     class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-gray-100 "
-      >
+    <Head title="Welcome" />
+
+    <link rel="icon" href="/Volunteerly/public/images/Logo.png" type="image/png">
+
+    <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
+
+    <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-gray-100 ">
 
 
     </div>

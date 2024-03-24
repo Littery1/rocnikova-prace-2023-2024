@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\EventLocationController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -50,4 +51,7 @@ Route::resource('locations', LocationController::class);
 Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.store');
 Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
 
+Route::get('/api/authenticated', function () {
+    return response()->json(['authenticated' => Auth::check()]);
+});
 require __DIR__ . '/auth.php';
