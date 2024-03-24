@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\EventLocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,7 @@ Route::resource('events', EventController::class);
 Route::resource('locations', LocationController::class);
 
 
-Route::post('/events', [EventController::class, 'store'])->name('events.store');
+Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.store');
 Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
 
 require __DIR__ . '/auth.php';

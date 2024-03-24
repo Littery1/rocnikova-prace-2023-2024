@@ -21,8 +21,8 @@ return new class extends Migration
             $table->timestamp('dateEnd');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
-            $table->bigInteger('locations_id');
-            $table->bigInteger('users_id');
+            $table->bigInteger('locations_id')->nullable();
+            $table->bigInteger('users_id')->nullable();
         });
     }
 

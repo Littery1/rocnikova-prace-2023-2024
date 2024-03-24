@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -18,23 +19,26 @@ class EventController extends Controller
         return view('events.create');
     }
 
+
+
     public function store(Request $request)
     {
-         dd($request->all());
-        // Validate input
         $validatedData = $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
             'dateStart' => 'required|date',
             'dateEnd' => 'required|date|after:dateStart',
             'locations_id' => 'required|exists:locations,id',
-            'users_id' => 'required|exists:users,id',
         ]);
+
+        // Assign user_id for the currently logged-in user
+        $validatedData['user_id'] = Auth::id();
 
         Event::create($validatedData);
 
-        return redirect()->route('events.index')->with('success', 'Event created successfully.');
+        return redirect()->route('dashboard');
     }
+
 
     public function edit(Event $event)
     {

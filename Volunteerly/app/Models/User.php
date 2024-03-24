@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'is_Organizator',
+        'is_Organizer',
     ];
 
     /**
@@ -43,4 +43,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'users_id'); // Specify the foreign key name
+    }
 }

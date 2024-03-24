@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Log;
 class LocationController extends Controller
 {
     public function index()
@@ -20,19 +22,21 @@ class LocationController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
-        // Validate input
+
         $validatedData = $request->validate([
-            'city' => 'required|string',
-            'district' => 'required|string',
-            'street' => 'required|string',
-            'coordinates' => ['required|point'],
+            'city' => 'required|string|max:100',
+            'province' => 'required|string',
+            'street' => 'required|string|nullable',
         ]);
 
-        Location::create(array_merge($validatedData, ['coordinates' => $this->parseCoordinates($request->coordinates)]));
 
-        return redirect()->route('locations.index')->with('success', 'Location created successfully.');
+        $validatedData['coordinates'] = $request->coordinates;
+
+        $location = Location::create($validatedData);
+
+        return Redirect::back()->with('locationId', $location->id);
     }
+
 
     public function edit(Location $location)
     {

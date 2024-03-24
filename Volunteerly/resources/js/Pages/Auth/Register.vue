@@ -11,7 +11,7 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
-    is_Organizator: false,
+    is_Organizer: false,
 });
 
 const submit = () => {
