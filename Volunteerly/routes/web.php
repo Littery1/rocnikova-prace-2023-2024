@@ -51,6 +51,8 @@ Route::resource('locations', LocationController::class);
 Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.store');
 Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
 
+
+
 Route::get('/api/authenticated', function () {
     return response()->json(['authenticated' => Auth::check()]);
 });
