@@ -40,7 +40,7 @@ defineProps({
 
     <Head title="Welcome" />
 
-    <link rel="icon" href="/Volunteerly/public/images/Logo.png" type="image/png">
+    <link rel="icon" href="/images/Logo.png" type="image/png">
 
     <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
 

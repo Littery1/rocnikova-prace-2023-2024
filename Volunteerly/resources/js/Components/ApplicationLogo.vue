@@ -1,3 +1,3 @@
 <template>
-  <v-img src="/images/Logo.png"></v-img>
+  <img src="/images/Logo.png" alt="Logo" />
 </template>
