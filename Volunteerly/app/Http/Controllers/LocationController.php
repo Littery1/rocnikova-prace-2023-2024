@@ -20,29 +20,27 @@ class LocationController extends Controller
         return view('locations.create');
     }
 
-    public function store(Request $request)
-    {
-
-        $validatedData = $request->validate([
-            'city' => 'required|string|max:100',
-            'province' => 'required|string',
-            'street' => 'required|string|nullable',
-        ]);
-
-
-        $validatedData['coordinates'] = $request->coordinates;
-
-        $location = Location::create($validatedData);
-
-        return Redirect::back()->with('locationId', $location->id);
-    }
-
 
     public function edit(Location $location)
     {
         return view('locations.edit', compact('location'));
     }
+  public function store(Request $request)
+    {
+        $requestData = $request->validate([
+            'city' => 'required|string|max:100',
+            'province' => 'required|string',
+            
+        ]);
 
+        $locationData = array_intersect_key($requestData, array_flip(['city', 'province', 'street']));
+        $locationData['coordinates'] = $request->coordinates;
+
+        $location = Location::create($locationData);
+
+        // Redirect back with location ID
+        return redirect()->back()->with('location_id', $location->id);
+    }
     public function update(Request $request, Location $location)
     {
         // Validate input

@@ -19,27 +19,28 @@ class EventController extends Controller
         return view('events.create');
     }
 
-
-
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $requestData = $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
             'dateStart' => 'required|date',
             'dateEnd' => 'required|date|after:dateStart',
-            'locations_id' => 'required|exists:locations,id',
         ]);
 
-        // Assign user_id for the currently logged-in user
-        $validatedData['user_id'] = Auth::id();
+        // Retrieve location ID from the session
+        $locationId = session()->get('location_id');
 
-        Event::create($validatedData);
+        $eventData = array_diff_key($requestData, array_flip(['city', 'province', 'street']));
+        $userId = auth()->user()->getAuthIdentifier();
+        $eventData['users_id'] = $userId;
+        $eventData['locations_id'] = $locationId;
 
-        return redirect()->route('dashboard');
+        Event::create($eventData);
+
+        // Redirect to the appropriate page
+        return redirect()->route('welcome');
     }
-
-
     public function edit(Event $event)
     {
         return view('events.edit', compact('event'));

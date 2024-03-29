@@ -50,6 +50,7 @@ Route::resource('locations', LocationController::class);
 
 Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.store');
 Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
+Route::post('/events', [EventController::class, 'store'])->name('events.store');
 
 
 
