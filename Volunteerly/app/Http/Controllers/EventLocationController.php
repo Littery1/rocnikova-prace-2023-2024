@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Event;
+use Inertia\Inertia;
 
 class EventLocationController extends Controller
 {
+    public function index()
+    {
+        $events = Event::all();
+        $locations = Location::all();
+
+        return inertia('DisplayEvents', ['events' => $events, 'locations' => $locations]);
+    }
     public function store(Request $request)
     {
         $requestData = $request->validate([

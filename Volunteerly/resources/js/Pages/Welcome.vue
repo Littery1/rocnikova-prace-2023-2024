@@ -4,6 +4,7 @@ import NavbarUnauthorized from '@/Components/Navbar/NavbarUnauthorized.vue';
 import NavbarAuthorized from '@/Components/Navbar/NavbarAuthorized.vue';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import DisplayEvents from '@/Components/DisplayEvents.vue';
 
 const isAuthenticated = ref(false);
 
@@ -43,10 +44,8 @@ defineProps({
     <link rel="icon" href="/images/Logo.png" type="image/png">
 
     <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
-
+        <DisplayEvents />
     <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-gray-100 ">
-
-
     </div>
 </template>
 
