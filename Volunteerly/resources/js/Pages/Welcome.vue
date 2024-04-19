@@ -5,7 +5,6 @@ import NavbarAuthorized from '@/Components/Navbar/NavbarAuthorized.vue';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import DisplayEvents from '@/Components/DisplayEvents.vue';
-
 const isAuthenticated = ref(false);
 
 onMounted(async () => {
@@ -18,34 +17,44 @@ onMounted(async () => {
 });
 
 defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    },
-    laravelVersion: {
-        type: String,
+    events: {
+        type: Object,
         required: true,
     },
-    phpVersion: {
-        type: String,
+    locations: {
+        type: Object,
         required: true,
-    }
+    },
+    // canLogin: {
+    //     type: Boolean,
+    // },
+    // canRegister: {
+    //     type: Boolean,
+    // },
+    // laravelVersion: {
+    //     type: String,
+    //     required: true,
+    // },
+    // phpVersion: {
+    //     type: String,
+    //     required: true,
+    // }
 });
 
 
 </script>
 
-<template>
+<template >
+    <div class="bg-gray-100">
 
-    <Head title="Welcome" />
+        <Head title="Welcome" />
 
-    <link rel="icon" href="/images/Logo.png" type="image/png">
+        <link rel="icon" href="/images/Logo.png" type="image/png">
 
-    <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
-        <DisplayEvents />
-    <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-gray-100 ">
+        <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
+        <DisplayEvents :events="events" :locations="locations" />
+
+     
     </div>
 </template>
 

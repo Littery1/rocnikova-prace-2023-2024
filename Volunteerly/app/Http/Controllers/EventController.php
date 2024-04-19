@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Location;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::with('location')->get();
-        return view('events.index', compact('events'));
+        $events = Event::all();
+        $locations = Location::all();
+
+        return inertia('Welcome', [
+            'events' => $events,
+            'locations' => $locations,
+        ]);
     }
 
     public function create()

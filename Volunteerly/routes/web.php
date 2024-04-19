@@ -44,8 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::resource('events', EventController::class);
-Route::resource('locations', LocationController::class);
+Route::resource('/eventes', EventController::class);
+Route::resource('users', ProfileController::class);
 
 
 Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.store');

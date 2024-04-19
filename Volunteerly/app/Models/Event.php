@@ -17,7 +17,8 @@ class Event extends Model
         'locations_id',
         'users_id'        
     ];
-
+    protected $with = ['location', 'user'];
+    
         public function location()
     {
         return $this->belongsTo(Location::class);
