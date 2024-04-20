@@ -14,7 +14,7 @@ class EventLocationController extends Controller
         $events = Event::all();
         $locations = Location::all();
 
-        return inertia('DisplayEvents', ['events' => $events, 'locations' => $locations]);
+        return inertia('Welcome', ['events' => $events, 'locations' => $locations]);
     }
     public function store(Request $request)
     {
