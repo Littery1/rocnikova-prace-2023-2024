@@ -50,7 +50,7 @@ defineProps({
         <Head title="Welcome" />
 
         <link rel="icon" href="/images/Logo.png" type="image/png">
-        
+
         <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
         <DisplayEvents :events="events" :locations="locations" />
 

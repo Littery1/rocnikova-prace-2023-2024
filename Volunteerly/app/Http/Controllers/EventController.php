@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EventResource;
+use App\Http\Resources\LocationResource;
 use App\Models\Event;
 use App\Models\Location;
 use Illuminate\Http\Request;
@@ -10,8 +12,8 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::all();
-        $locations = Location::all();
+        $events = EventResource::collection(Event::paginate(12));
+        $locations = LocationResource::collection(Location::paginate(12));
 
         return inertia('Welcome', [
             'events' => $events,
