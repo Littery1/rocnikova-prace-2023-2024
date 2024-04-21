@@ -1,24 +1,47 @@
 <template>
-    <div class="container mx-auto">
-        <fwb-heading tag="h1" class="text-3xl font-semibold m-4 text-center">Události</fwb-heading>
-        <div class="grid grid-cols-4 gap-4">
-            <div v-for="event in events.data" :key="event.id" class="flex flex-col items-center">
-                <fwb-img src="/images/BlankPhoto.jpg" style="height: 12rem; width: 12rem;" />
-                <div class="bg-black bg-opacity-50 text-white mt-1 text-center p-10" style="width: 12rem;">
-                    <p class="overflow-hidden whitespace-nowrap overflow-ellipsis">{{ event.description }}</p>
+
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="container mx-auto p-6">
+            <fwb-heading tag="h1" class="text-3xl font-semibold m-4 text-center p-2">Události</fwb-heading>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-screen-lg mx-auto">
+                <div v-for="event in events.data" :key="event.id"
+                    class="border border-gray-300 rounded-lg overflow-hidden">
+                    <fwb-img src="/images/BlankPhoto.jpg" />
+                    <div class="bg-black bg-opacity-50 text-white mt-1 text-center p-4">
+                        <p class="overflow-hidden whitespace-nowrap overflow-ellipsis"></p>
+                    </div>
                 </div>
+            </div>
+            <div class="flex items-center justify-center mt-4">
+                <fwb-pagination v-model="currentPage" :total-items="events.meta.total" previous-label="<<<"
+                    next-label=">>>">
+                    <template v-slot:page-button="{ page }">
+
+                        <button @click="goToPage(page, events)"
+                            class="flex items-center justify-center first:rounded-l-lg last:rounded-r-lg px-3 h-8 ml-0 leading-tight text-gray-500 bg-purple-200 border border-purple-300 hover:bg-purple-300 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            {{ page }}
+
+                        </button>
+                    </template>
+                </fwb-pagination>
+
             </div>
         </div>
     </div>
-    <fwb-pagination v-model="currentPage" :total-pages="100" previous-label="<" next-label=">"></fwb-pagination>
 </template>
 
 
 <script setup>
-import { FwbImg } from 'flowbite-vue'
-import { FwbHeading } from 'flowbite-vue'
+import { FwbImg, FwbHeading } from 'flowbite-vue'
 import { FwbPagination } from 'flowbite-vue'
 import { ref } from 'vue'
+import { Inertia } from '@inertiajs/inertia';
+
+function goToPage(page) {
+    currentPage.value = page;
+
+    Inertia.visit(`http://127.0.0.1:8000/eventes?page=${page}`);
+}
 
 const currentPage = ref(1)
 
@@ -34,3 +57,5 @@ defineProps({
 });
 
 </script>
+
+
