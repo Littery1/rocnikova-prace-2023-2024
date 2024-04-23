@@ -12,7 +12,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = EventResource::collection(Event::paginate(12));
+        $events = EventResource::collection(Event::with('location')->paginate(12));
         $locations = LocationResource::collection(Location::paginate(12));
 
         return inertia('Welcome', [
@@ -20,6 +20,7 @@ class EventController extends Controller
             'locations' => $locations,
         ]);
     }
+
 
     public function create()
     {

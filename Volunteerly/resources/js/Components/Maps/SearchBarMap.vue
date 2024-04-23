@@ -8,7 +8,7 @@ import { defineComponent, ref, onMounted } from 'vue';
 
 export default defineComponent({
     setup(_, { emit }) {
-        let map;
+        let map = null;
         let marker;
         const loader = new Loader({
             apiKey: "AIzaSyAPH2-HtObKLcm-wKahot1g8J0N0Ks8DA4",

@@ -14,13 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->bigIncrements('id')->unique('location_key2');
+            $table->bigIncrements('id');
             $table->string('city', 100);
             $table->string('province');
             $table->string('street')->nullable();
-            $table->point('coordinates');
+            $table->geometry('coordinates');
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
+
+            $table->unique(['id'], 'location_key2');
         });
     }
 
