@@ -11,8 +11,8 @@ class Location extends Model
 
     protected $fillable = [
         'city',
-         'province', 
-         'street', 
+        'province', 
+        'street', 
         'coordinates'
     ];
         public function events()

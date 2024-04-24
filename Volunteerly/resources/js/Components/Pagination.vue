@@ -31,9 +31,5 @@ defineProps({
         type: Object,
         required: true,
     },
-    locations: {
-        type: Object,
-        required: true,
-    },
 });
 </script>

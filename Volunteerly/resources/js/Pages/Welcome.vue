@@ -4,7 +4,7 @@
 
         <link rel="icon" href="/images/Logo.png" type="image/png">
         <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
-        <DisplayEvents :events="events" :locations="locations" />
+        <DisplayEvents :events="events" />
     </div>
 </template>
 <script setup>
@@ -27,10 +27,6 @@ onMounted(async () => {
 
 defineProps({
     events: {
-        type: Object,
-        required: true,
-    },
-    locations: {
         type: Object,
         required: true,
     },

@@ -17,7 +17,7 @@ class EventResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'dateStart' => $this->dateStart,
-            'location' => LocationResource::make($this),
+            'location' => LocationResource::make($this->whenLoaded('location')),
             'user' => UserResource::make($this->whenLoaded('user')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
