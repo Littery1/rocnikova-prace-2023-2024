@@ -5,7 +5,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-screen-lg mx-auto">
                 <div v-for="event in events.data.sort((a, b) => a.id - b.id)" :key="event.id"
                     class="rounded-lg overflow-hidden">
-                    <InertiaLink :href="'/events' + event.id">
+                    <InertiaLink :href="'/event' + event.id">
                         <fwb-img src="/images/BlankPhoto.jpg" />
                     </InertiaLink>
 
@@ -16,7 +16,7 @@
                                     <h2 class="text-xs font-semibold">{{ event.location.city }}, {{ event.location.street }}</h2>
                                 </div>
                         <div class="max-h-16 overflow-hidden">
-                            <InertiaLink :href="'/events' + event.id" class="text-link">
+                            <InertiaLink :href="'/event' + event.id" class="text-link">
                                 <p class="text-sm line-clamp-2">{{ event.description }}</p>
                             </InertiaLink>
                         </div>

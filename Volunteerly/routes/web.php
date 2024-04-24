@@ -48,7 +48,7 @@ Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name
 Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
 Route::post('/events', [EventController::class, 'store'])->name('events.store');
 
-Route::get('/events{id}', [EventController::class, 'show'])->name('events.show');
+Route::get('/event{id}', [EventController::class, 'show'])->name('events.show');
 
 Route::get('/api/authenticated', function () {
     return response()->json(['authenticated' => Auth::check()]);

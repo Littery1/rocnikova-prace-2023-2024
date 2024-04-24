@@ -12,10 +12,6 @@ defineProps({
         type: Object,
         required: true,
     },
-    location: {
-        type: Object,
-        required: true,
-    },
 });
 const formatDate = (dateString) => {
     const date = new Date(dateString);

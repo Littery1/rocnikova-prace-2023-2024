@@ -78,10 +78,8 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
-        $location = Location::findOrFail($event->locations_id);
         return inertia('Events/Show', [
             'event' => new EventResource($event),
-            'location' => new LocationResource($location),
         ]);
     }
 
