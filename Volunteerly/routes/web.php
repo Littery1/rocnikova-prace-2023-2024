@@ -20,14 +20,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('welcome');
+
+
+Route::get('/', [EventController::class, 'index'])->name('welcome');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -44,8 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::resource('/eventes', EventController::class);
-Route::resource('users', ProfileController::class);
+
+Route::resource('/users', ProfileController::class);
 
 
 Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.store');

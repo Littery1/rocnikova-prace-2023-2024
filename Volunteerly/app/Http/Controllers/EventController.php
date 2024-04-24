@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\EventResource;
-use App\Http\Resources\LocationResource;
 use App\Models\Event;
+use Inertia\Controller;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use App\Http\Resources\EventResource;
+use App\Http\Resources\LocationResource;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
 
 class EventController extends Controller
 {
@@ -16,6 +19,10 @@ class EventController extends Controller
 
         return inertia('Welcome', [
             'events' => $events,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
         ]);
     }
 
