@@ -1,12 +1,29 @@
 <template>
+    <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
     <div>
-        <h1>Event Details</h1>
-        <p>Event ID: {{ event }}</p>
+        <h1 class="text-blue-500 text-4xl text-center font-bold ">{{ event.data.name }}</h1>
+
+        <Gallery class=" flex items-center min-h-screen" style="transform: scale(0.8);" />
+
     </div>
 </template>
 
 <script setup>
 import { defineProps } from 'vue';
+import { ref, onMounted } from 'vue';
+import NavbarUnauthorized from '@/Components/Navbar/NavbarUnauthorized.vue';
+import NavbarAuthorized from '@/Components/Navbar/NavbarAuthorized.vue';
+import Gallery from '@/Components/Gallery.vue';
+const isAuthenticated = ref(false);
+
+onMounted(async () => {
+    try {
+        const response = await axios.get('/api/authenticated');
+        isAuthenticated.value = response.data.authenticated;
+    } catch (error) {
+        console.error('Error fetching authentication state:', error);
+    }
+});
 defineProps({
     event: {
         type: Object,

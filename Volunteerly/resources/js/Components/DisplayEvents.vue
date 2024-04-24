@@ -10,11 +10,15 @@
                     </InertiaLink>
 
                     <div class="bg-opacity-50 text-black mt-1 text-center p-4">
-                                <div class="flex items-center mb-2">
-                                    <fwb-img alt="Map Pointer" class="w-4 h-auto m-1"
-                                        src="/images/MapPointer.png"></fwb-img>
-                                    <h2 class="text-xs font-semibold">{{ event.location.city }}, {{ event.location.street }}</h2>
-                                </div>
+                        <div class="flex items-center mb-2">
+                            <fwb-img alt="Map Pointer" class="w-4 h-auto m-1" src="/images/MapPointer.png"></fwb-img>
+                            <h2 class="text-xs font-semibold">
+                                {{ event.location.city }}
+                                <template v-if="event.location.street !== null">
+                                    , {{ event.location.street }}
+                                </template>
+                            </h2>
+                        </div>
                         <div class="max-h-16 overflow-hidden">
                             <InertiaLink :href="'/event' + event.id" class="text-link">
                                 <p class="text-sm line-clamp-2">{{ event.description }}</p>
