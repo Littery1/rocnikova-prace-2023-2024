@@ -4,4 +4,10 @@ zprovoznit error messages
 zkontrolovat vstupy napr ze datumy sedi
 
 
+EventResource
+
+opravit location na whenLoaded()
+
+
+
 

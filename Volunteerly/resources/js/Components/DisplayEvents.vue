@@ -4,25 +4,25 @@
             <fwb-heading tag="h1" class="text-3xl font-semibold m-4 text-center p-2">Události</fwb-heading>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-screen-lg mx-auto">
                 <div v-for="event in events.data.sort((a, b) => a.id - b.id)" :key="event.id"
-                    class="border border-gray-300 rounded-lg overflow-hidden">
-                    <fwb-img src="/images/BlankPhoto.jpg" />
-                    <div class="bg-black bg-opacity-50 text-white mt-1 text-center p-4">
-
+                    class="rounded-lg overflow-hidden">
+                    <InertiaLink :href="'/events' + event.id">
+                        <fwb-img src="/images/BlankPhoto.jpg" />
+                    </InertiaLink>
+                    <div class="bg-opacity-50 text-black mt-1 text-center p-4">
                         <template v-for="location in locations.data">
                             <template v-if="location.id === event.location.id">
-                                <h2 class="text-xl font-semibold">ID: {{ location.id }}</h2>
-                                <h2 class="text-xl font-semibold">Město: {{ location.city }}</h2>
-                                <h2 class="text-xl font-semibold">Provincie: {{ location.province }}</h2>
-                                <h2 class="text-xl font-semibold">Ulice: {{ location.street }}</h2>
+                                <div class="flex items-center mb-2">
+                                    <fwb-img alt="Map Pointer" class="w-4 h-auto m-1"
+                                        src="/images/MapPointer.png"></fwb-img>
+                                    <h2 class="text-xs font-semibold">{{ location.city }}, {{ location.street }}</h2>
+
+                                </div>
                             </template>
                         </template>
-
-                        <div>
-                            <h2 class="text-xl font-semibold">Nazev: {{ event.name }}</h2>
-                            <p>Start: {{ event.dateStart }}</p>
-                            <p>Konec: {{ event.dateEnd }}</p>
-                            <p class="overflow-hidden whitespace-nowrap overflow-ellipsis">Popis: {{ event.description
-                                }}</p>
+                        <div class="max-h-16 overflow-hidden">
+                            <InertiaLink :href="'/events' + event.id" class="text-link">
+                                <p class="text-sm line-clamp-2">{{ event.description }}</p>
+                            </InertiaLink>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
 import { FwbImg, FwbHeading } from 'flowbite-vue'
 import Pagination from './Pagination.vue';
 import { defineProps } from 'vue';
-
+import { InertiaLink } from '@inertiajs/inertia-vue3';
 defineProps({
     events: {
         type: Object,
@@ -49,5 +49,15 @@ defineProps({
         required: true,
     },
 });
-
 </script>
+
+<style>
+.text-link {
+    color: rgb(15, 101, 145);
+    text-decoration: none;
+}
+
+.text-link:hover {
+    text-decoration: underline;
+}
+</style>

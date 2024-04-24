@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\LocationResource;
+use App\Http\Resources\UserResource;
 
 class EventResource extends JsonResource
 {
@@ -15,7 +17,6 @@ class EventResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'dateStart' => $this->dateStart,
-            'dateEnd' => $this->dateEnd,
             'location' => LocationResource::make($this),
             'user' => UserResource::make($this->whenLoaded('user')),
             'created_at' => $this->created_at,
