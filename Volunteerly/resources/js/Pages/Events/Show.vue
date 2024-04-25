@@ -28,10 +28,9 @@
                 <div class="border-b border-gray-400 w-full mt-4"></div>
             </div>
         </div>
-        <Calendar />
+        <Calendar :event="event" />
     </div>
 
-    <Calendar />
 </template>
 
 <script setup>
