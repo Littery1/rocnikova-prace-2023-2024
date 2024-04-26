@@ -1,12 +1,20 @@
 <template>
     <div class="ml-[15vw]">
-        <div class="flex items-center">
-            <fwb-img class="w-10" src="/images/DocumentLogo.png" />
-            <h2 class="text-xl ml-2 text-blue-500 font-bold">Popis:</h2>
+        <div style="width: 75vw;">
+            <div class="flex items-center">
+                <fwb-img class="w-10" src="/images/DocumentLogo.png" />
+                <h2 class="text-xl ml-2 text-blue-500 font-bold">Popis:</h2>
+            </div>
+            <p class="text-sm m-6">{{ event.data.description }}</p>
+            <ShowEvent :event="event" />
+            <div class="flex items-center">
+                <fwb-img class="w-20" src="/images/Rating.png" />
+                <h2 class="text-xl ml-2 text-blue-500 font-bold">Hodnocení:</h2>
+            </div>
         </div>
-        <p class="text-sm m-6">{{ event.data.description }}</p>
 
-        <ShowEvent :event="event" />
+
+
     </div>
 </template>
 

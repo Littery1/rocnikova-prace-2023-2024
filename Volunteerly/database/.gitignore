@@ -34,6 +34,5 @@
 
 # Ignore Tailwind CSS source maps
 /public/css/*.map
-# Ignore ide helper files
-_ide_heleper.php
+
 
