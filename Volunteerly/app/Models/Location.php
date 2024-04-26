@@ -15,7 +15,7 @@ class Location extends Model
         'street', 
         'coordinates'
     ];
-        public function events()
+    public function events()
     {
         return $this->hasMany(Event::class);
     }

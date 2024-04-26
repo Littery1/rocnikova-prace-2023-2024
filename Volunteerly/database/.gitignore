@@ -1,1 +1,39 @@
 *.sqlite*
+# Ignore node_modules directory
+/node_modules
+
+# Ignore Laravel's vendor directory
+/vendor
+
+# Ignore the .env file
+.env
+
+# Ignore uploaded files stored in public/storage
+/public/storage
+
+# Ignore generated encryption keys
+/storage/*.key
+
+# Ignore Laravel Debugbar cache and logs
+/storage/debugbar
+
+# Ignore Composer binaries
+/vendor/bin
+
+# Ignore PhpStorm project settings
+.idea/
+
+# Ignore Flowbite custom components or modifications
+/flowbite_components
+
+# Ignore Flowbite node_modules
+/flowbite_node_modules
+
+# Ignore Tailwind CSS build directory
+/public/css/*.css
+
+# Ignore Tailwind CSS source maps
+/public/css/*.map
+# Ignore ide helper files
+_ide_heleper.php
+

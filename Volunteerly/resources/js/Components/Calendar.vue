@@ -1,19 +1,19 @@
 <template>
 
-    <div class="h-screen bg-gray-100 p-6">
+    <div class=" p-6">
         <table class="mx-auto">
             <!-- First row: Month abbreviations -->
             <tr>
                 <td v-for="(abbreviation, index) in monthAbbreviations" :key="index"
                     class="text-center px-4 py-1 bg-blue-500 border-4 border-white">
-                    <p class="text-gray-900 text-sm">{{ abbreviation }}</p>
+                    <p class="text-white  text-sm">{{ abbreviation }}</p>
                 </td>
             </tr>
             <!-- Second row: Checkmarks -->
             <tr>
                 <td v-for="(abbreviation, index) in monthAbbreviations" :key="'checkmark-' + index"
-                    class="text-center px-4 py-4">
-                    <p v-if="getEventMonths.includes(abbreviation)" class="text-2xl">✔️</p>
+                    class="text-center ">
+                    <p v-if="getEventMonths.includes(abbreviation)" class="text-white text-2xl bg-green-400">✓</p>
                 </td>
             </tr>
         </table>
