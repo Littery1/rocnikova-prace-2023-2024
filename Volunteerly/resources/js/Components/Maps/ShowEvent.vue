@@ -28,8 +28,8 @@ const loader = new Loader({
 onMounted(async () => {
     await loader.load();
     map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 49.823433, lng: 15.7245234 },
-        zoom: 6.71,
+        center: { lat: lati, lng: lngi },
+        zoom: 17,
         mapId: "DEMO_MAP_ID",
     });
 
