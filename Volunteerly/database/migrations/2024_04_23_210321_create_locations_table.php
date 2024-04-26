@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('city', 100);
             $table->string('province');
             $table->string('street')->nullable();
-            $table->geometry('coordinates');
+            $table->decimal('latitude', 10, 7); 
+            $table->decimal('longitude', 10, 7);      
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
 

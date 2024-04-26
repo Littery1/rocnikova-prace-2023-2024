@@ -1,5 +1,4 @@
 <template>
-    {{ event.data.location.coordinates }}
     <div id="map" style="width:75vw; height: 70vh"></div>
 
 </template>
@@ -14,8 +13,9 @@ const props = defineProps({
     },
 });
 
-const lati = props.event.data.location.coordinates.split(' ')[1];
-const lngi = props.event.data.location.coordinates.split(' ')[2];
+
+const lati = parseFloat(props.event.data.location.latitude);
+const lngi = parseFloat(props.event.data.location.longitude);
 let map = null;
 let marker;
 const loader = new Loader({

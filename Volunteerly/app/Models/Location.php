@@ -13,7 +13,8 @@ class Location extends Model
         'city',
         'province', 
         'street', 
-        'coordinates'
+        'latitude',
+        'longitude',
     ];
     public function events()
     {
