@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@googlemaps/js-api-loader": "^1.16.6",
+        "@hyvor/hyvor-talk-vue": "^0.0.3",
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-vue3": "^0.6.0",
         "dayjs": "^1.11.10",

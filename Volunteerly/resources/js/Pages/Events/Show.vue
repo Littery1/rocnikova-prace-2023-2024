@@ -32,6 +32,7 @@
                 </div>
                 <Calendar :event="event" />
 
+                
                 <Details :event="event" />
 
         </div>
