@@ -3,24 +3,24 @@
         <div class="flex flex-col items-center">
             <div class="border-b border-gray-400 w-full mb-4"></div>
 
-            <div class="flex  ml-[-33vw]">
+            <div class="flex flex-col md:flex-row ml-4 md:ml-[-33vw]">
                 <!-- First h2 element -->
-                <div class="flex-none">
+                <div class="flex-none mb-2 md:mb-0">
                     <h2 class="text-2xl font-bold text-blue-700 cursor-pointer"
                         @click="() => VueScrollTo.scrollTo('#description')">
                         Popis</h2>
                 </div>
 
                 <!-- Second h2 element -->
-                <div class="flex-none ml-4 text-blue-700">
-                    <h2 class="text-2xl font-bold cursor-pointer" 
-                    @click="() => VueScrollTo.scrollTo('#map')">Mapa</h2>
+                <div class="flex-none ml-4">
+                    <h2 class="text-2xl font-bold text-blue-700 cursor-pointer"
+                        @click="() => VueScrollTo.scrollTo('#map')">Mapa</h2>
                 </div>
 
                 <!-- Third h2 element -->
-                <div class="flex-none ml-4 text-blue-700 ">
-                    <h2 class="text-2xl font-bold cursor-pointer" 
-                    @click="() => VueScrollTo.scrollTo('#rating')">
+                <div class="flex-none ml-4">
+                    <h2 class="text-2xl font-bold text-blue-700 cursor-pointer"
+                        @click="() => VueScrollTo.scrollTo('#rating')">
                         Hodnocení</h2>
                 </div>
             </div>
@@ -29,14 +29,10 @@
         </div>
     </div>
 
-    <div class="ml-[15vw]">
-        <div style="width: 75vw;">
-
-
-
+    <div class="ml-4 md:ml-[15vw] mr-4 md:mr-[7vw] bg-white rounded-xl">
+        <div style="width: 100%;  " class="m-5">
             <div class="flex items-center m-5">
                 <h2 class="text-xl ml-2 text-blue-500 font-bold">Kdy se akce koná?</h2>
-
             </div>
             <Calendar :event="event" />
 
@@ -47,18 +43,15 @@
             <p class="text-sm m-6">{{ event.data.description }}</p>
             <ShowEvent :event="event" id="map" />
 
-            <div class="flex items-center m-5  " id="rating">
+            <div class="flex items-center m-5" id="rating">
                 <fwb-img class="w-20" src="/images/Rating.png" />
                 <h2 class="text-xl ml-2 text-blue-500 font-bold">Hodnocení:</h2>
             </div>
-            <Comments page-language="cs" :website-id="11002" :page-id="currentUrl" />
-
+            <Comments page-language="cs" :website-id="11002" :page-id="currentUrl" style="width:75vw;"/>
         </div>
-
-
-
     </div>
 </template>
+
 
 <script setup>
 import { FwbImg } from 'flowbite-vue';
