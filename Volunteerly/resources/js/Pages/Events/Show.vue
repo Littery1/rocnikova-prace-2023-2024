@@ -29,10 +29,7 @@
 
                         <div class="border-b border-gray-400 w-full mt-4"></div>
                     </div>
-                </div>
-                <Calendar :event="event" />
-
-                
+                </div>                
                 <Details :event="event" />
 
         </div>
@@ -45,7 +42,6 @@ import { ref, onMounted } from 'vue';
 import NavbarUnauthorized from '@/Components/Navbar/NavbarUnauthorized.vue';
 import NavbarAuthorized from '@/Components/Navbar/NavbarAuthorized.vue';
 import Gallery from '@/Components/Gallery.vue';
-import Calendar from '@/Components/Calendar.vue';
 import Details from '@/Components/Details.vue';
 
 const isAuthenticated = ref(false);
