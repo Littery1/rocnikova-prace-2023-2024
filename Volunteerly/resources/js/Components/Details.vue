@@ -3,53 +3,73 @@
         <div class="flex flex-col items-center">
             <div class="border-b border-gray-400 w-full mb-4"></div>
 
-            <div class="flex flex-col md:flex-row ml-4 md:ml-[-33vw]">
-                <!-- First h2 element -->
-                <div class="flex-none mb-2 md:mb-0">
-                    <h2 class="text-2xl font-bold text-blue-700 cursor-pointer"
-                        @click="() => VueScrollTo.scrollTo('#description')">
-                        Popis</h2>
-                </div>
+            <div class="flex flex-col md:flex-row justify-between w-full">
+                <div class="flex flex-col md:flex-row md:ml-[20vw] space-y-2 md:space-y-0">
+                    <!-- First h2 element -->
+                    <div>
+                        <h2 class="text-2xl font-bold text-blue-700 cursor-pointer"
+                            @click="() => VueScrollTo.scrollTo('#description')">
+                            Popis</h2>
+                    </div>
 
-                <!-- Second h2 element -->
-                <div class="flex-none ml-4">
-                    <h2 class="text-2xl font-bold text-blue-700 cursor-pointer"
-                        @click="() => VueScrollTo.scrollTo('#map')">Mapa</h2>
-                </div>
+                    <!-- Second h2 element -->
+                    <div class="ml-4">
+                        <h2 class="text-2xl font-bold text-blue-700 cursor-pointer"
+                            @click="() => VueScrollTo.scrollTo('#map')">Mapa</h2>
+                    </div>
 
-                <!-- Third h2 element -->
-                <div class="flex-none ml-4">
-                    <h2 class="text-2xl font-bold text-blue-700 cursor-pointer"
-                        @click="() => VueScrollTo.scrollTo('#rating')">
-                        Hodnocení</h2>
+                    <!-- Third h2 element -->
+                    <div class="ml-4">
+                        <h2 class="text-2xl font-bold text-blue-700 cursor-pointer"
+                            @click="() => VueScrollTo.scrollTo('#rating')">
+                            Hodnocení</h2>
+                    </div>
+                </div>
+                <div class="flex items-center cursor-pointer mt-4 md:mt-0" style="margin-right: 10vw;">
+                    <fwb-img class=" w-[2.5vw] md:w-[2.5vw]" src="/images/Mail.png" />
+                    <h3 class="text-2xl font-bold text-blue-700 ml-2">Kontakt</h3>
                 </div>
             </div>
 
             <div class="border-b border-gray-400 w-full mt-4"></div>
         </div>
     </div>
+    <div class="flex">
+        <div class="md:ml-[5vw]  bg-white rounded-xl border border-gray-300 shadow-sm w-[65vw] overflow-auto">
+            <div class="m-5">
+                <div class="flex items-center">
+                    <h2 class="text-xl ml-2 text-blue-500 font-bold m-5">Kdy se akce koná?</h2>
+                </div>
+                <Calendar :event="event" />
 
-    <div class="ml-4 md:ml-[15vw] mr-4 md:mr-[7vw] bg-white rounded-xl">
-        <div style="width: 100%;  " class="m-5">
+                <div class="flex items-center m-5" id="description">
+                    <fwb-img class=" w-[2.5vw]" src="/images/DocumentLogo.png" />
+                    <h2 class="text-xl ml-2 text-blue-500 font-bold">Popis:</h2>
+                </div>
+                <p class="text-sm m-6 w-[55vw]">{{ event.data.description }}</p>
+                <ShowEvent :event="event" id="map" />
+
+                <div class="flex items-center m-5" id="rating">
+                    <fwb-img class=" w-[5vw]" src="/images/Rating.png" />
+                    <h2 class="text-xl ml-2 text-blue-500 font-bold">Hodnocení:</h2>
+                </div>
+                <Comments page-language="cs" :website-id="11002" :page-id="currentUrl" class="w-[56vw]" />
+            </div>
+        </div>
+        <div
+            class=" w-[30vw] md:ml-[1vw] md:mr-[5vw] bg-white rounded-xl border border-gray-300 shadow-sm overflow-auto">
+
             <div class="flex items-center m-5">
-                <h2 class="text-xl ml-2 text-blue-500 font-bold">Kdy se akce koná?</h2>
+                <h2 class="text-xl ml-2 text-blue-500 font-bold m-5">Profil hostitele</h2>
             </div>
-            <Calendar :event="event" />
-
-            <div class="flex items-center m-5" id="description">
-                <fwb-img class="w-10" src="/images/DocumentLogo.png" />
-                <h2 class="text-xl ml-2 text-blue-500 font-bold">Popis:</h2>
+            <div class="flex items-center m-5">
+                <p>{{ event.data.user.name }}</p>
             </div>
-            <p class="text-sm m-6">{{ event.data.description }}</p>
-            <ShowEvent :event="event" id="map" />
-
-            <div class="flex items-center m-5" id="rating">
-                <fwb-img class="w-20" src="/images/Rating.png" />
-                <h2 class="text-xl ml-2 text-blue-500 font-bold">Hodnocení:</h2>
-            </div>
-            <Comments page-language="cs" :website-id="11002" :page-id="currentUrl" style="width:75vw;"/>
         </div>
     </div>
+
+
+
 </template>
 
 

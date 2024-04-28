@@ -1,28 +1,30 @@
 <template>
-    <div class=" p-6">
-        <table class="mx-auto ">
-            <!-- First row: Month abbreviations -->
-            <tr>
-                <td v-for="(abbreviation, index) in monthAbbreviations" :key="index"
-                    class="text-center px-4 py-1 bg-blue-500 border-4 border-white">
-                    <p class="text-white  text-sm">{{ abbreviation }}</p>
-                </td>
-            </tr>
-            <!-- Second row: Checkmarks -->
-            <tr>
-                <td v-for="(abbreviation, index) in monthAbbreviations" :key="'checkmark-' + index" class="text-center">
-                    <p v-if="eventMonths.includes(abbreviation)" class="text-white text-2xl bg-green-400">✓</p>
-                    <div v-else class="h-10"></div>
-                </td>
+    <div class="m-5 flex flex-col items-center">
+        <div class="w-full overflow-auto h-[18vh]">
+            <table class="min-w-full">
+                <!-- First row: Month abbreviations -->
+                <tr>
+                    <td v-for="(abbreviation, index) in monthAbbreviations" :key="index"
+                        class="text-center px-4 py-1 bg-blue-500 border-4 border-white">
+                        <p class="text-white text-sm">{{ abbreviation }}</p>
+                    </td>
+                </tr>
+                <!-- Second row: Checkmarks -->
+                <tr>
+                    <td v-for="(abbreviation, index) in monthAbbreviations" :key="'checkmark-' + index"
+                        class="text-center">
+                        <p v-if="eventMonths.includes(abbreviation)" class="text-white text-2xl bg-green-400">✓</p>
+                        <div v-else></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-            </tr>
-        </table>
-
-    </div>
-    <div class="flex justify-center items-center mt-4">
-        <fwb-button class="mr-4" @click="previousYear">←</fwb-button>
-        <span>{{ currentYear }}</span>
-        <fwb-button class="ml-4" @click="nextYear">→</fwb-button>
+        <div class="flex justify-center items-center mt-4">
+            <fwb-button class="mr-4" @click="previousYear">←</fwb-button>
+            <span>{{ currentYear }}</span>
+            <fwb-button class="ml-4" @click="nextYear">→</fwb-button>
+        </div>
     </div>
 </template>
 
