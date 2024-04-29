@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\LocationController;
-use App\Http\Controllers\EventLocationController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UploadImagesController;
+use App\Http\Controllers\DeleteTemporaryImagesController;
+use App\Http\Controllers\UploadTemporaryImagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,21 +20,27 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-
+Route::get('/upload-images', [UploadImagesController::class, 'index'])->name('uploadImages.index');
+Route::post('/images', [UploadImagesController::class, 'upload'])->name('UploadImages.upload');
+Route::post('/upload-temp-images', [UploadTemporaryImagesController::class, 'upload'])->name('UploadTemporaryImages.upload');
+Route::delete('/revert/{folder}', [DeleteTemporaryImagesController::class, 'delete'])->name('DeleteTemporaryImages.delete');
 
 Route::get('/', [EventController::class, 'index'])->name('welcome');
+Route::get('/event{id}', [EventController::class, 'show'])->name('events.show');
+Route::get('/api/authenticated', function () {
+    return response()->json(['authenticated' => Auth::check()]);
+});
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 
-
-Route::get('/my-actions', function () {
-    return Inertia::render('MyActions');
-})->middleware(['auth', 'verified'])->name('my-actions');
-
-
+    Route::get('/my-actions', function () {
+        return Inertia::render('MyActions');
+    })->name('my-actions');
+});
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -44,13 +50,4 @@ Route::middleware('auth')->group(function () {
 Route::resource('/users', ProfileController::class);
 
 
-Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.store');
-Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
-Route::post('/events', [EventController::class, 'store'])->name('events.store');
-
-Route::get('/event{id}', [EventController::class, 'show'])->name('events.show');
-
-Route::get('/api/authenticated', function () {
-    return response()->json(['authenticated' => Auth::check()]);
-});
 require __DIR__ . '/auth.php';

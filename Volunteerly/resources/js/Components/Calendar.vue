@@ -1,6 +1,6 @@
 <template>
     <div class="m-5 flex flex-col items-center">
-        <div class="w-full overflow-auto h-[18vh]">
+        <div class="w-full overflow-auto h-[25vh]">
             <table class="min-w-full">
                 <!-- First row: Month abbreviations -->
                 <tr>
@@ -12,8 +12,8 @@
                 <!-- Second row: Checkmarks -->
                 <tr>
                     <td v-for="(abbreviation, index) in monthAbbreviations" :key="'checkmark-' + index"
-                        class="text-center">
-                        <p v-if="eventMonths.includes(abbreviation)" class="text-white text-2xl bg-green-400">✓</p>
+                        class="text-center ">
+                        <p v-if="eventMonths.includes(abbreviation)" class="text-white text-2xl bg-green-400 h-[10vh]">✓</p>
                         <div v-else></div>
                     </td>
                 </tr>
