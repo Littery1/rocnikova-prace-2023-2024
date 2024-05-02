@@ -21,7 +21,7 @@ use App\Http\Controllers\UploadTemporaryImagesController;
 */
 
 Route::get('/upload-images', [UploadImagesController::class, 'index'])->name('uploadImages.index');
-Route::post('/images', [UploadImagesController::class, 'upload'])->name('UploadImages.upload');
+Route::post('/upload-images_upload', [UploadImagesController::class, 'upload'])->name('UploadImages.upload');
 Route::post('/upload-temp-images', [UploadTemporaryImagesController::class, 'upload'])->name('UploadTemporaryImages.upload');
 Route::delete('/revert/{folder}', [DeleteTemporaryImagesController::class, 'delete'])->name('DeleteTemporaryImages.delete');
 

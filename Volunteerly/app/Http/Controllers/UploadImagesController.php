@@ -28,7 +28,6 @@ class UploadImagesController extends Controller
             File::deleteDirectory('/images/tmp/' . $temporaryImage->folder);
             $temporaryImage->delete();
         }
-        return to_route('dashboard');
- 
+        return redirect()->route('welcome'); 
     }
 }

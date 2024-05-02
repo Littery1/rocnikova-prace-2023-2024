@@ -1,6 +1,6 @@
 <template>
     <div class="m-10">
-        <form @submit.prevent="$event => form.post(route('UploadTemporaryImages.upload'))">
+        <form @submit.prevent="$event => form.post(route('UploadImages.upload'))">
             <file-pond name="image" ref="pond" class-name="my-pond" label-idle="Přetáhněte sem fotky..."
                 allows-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{
                     url: '',
