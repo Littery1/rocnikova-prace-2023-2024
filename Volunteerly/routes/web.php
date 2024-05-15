@@ -37,9 +37,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/my-actions', function () {
-        return Inertia::render('MyActions');
-    })->name('my-actions');
+    Route::get('/my-events', [EventController::class, 'showMyEvents'])->name('my-events');  
+
+    Route::get('/create-event', function () {
+        return Inertia::render('Events/CreateEvent');
+    })->name('create-event');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

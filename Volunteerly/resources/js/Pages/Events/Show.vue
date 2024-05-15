@@ -15,6 +15,7 @@
 <script setup>
 import { defineProps } from 'vue';
 import { ref, onMounted } from 'vue';
+
 import NavbarUnauthorized from '@/Components/Navbar/NavbarUnauthorized.vue';
 import NavbarAuthorized from '@/Components/Navbar/NavbarAuthorized.vue';
 import Gallery from '@/Components/Gallery.vue';

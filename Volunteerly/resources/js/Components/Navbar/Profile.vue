@@ -24,7 +24,7 @@ const showingNavigationDropdown = ref(false);
 
     <template #content>
       <DropdownLink :href="route('profile.edit')"> Profil </DropdownLink>
-      <DropdownLink :href="route('my-actions') "> Moje Akce </DropdownLink>
+      <DropdownLink :href="route('my-events') "> Moje Akce </DropdownLink>
 
       <DropdownLink :href="route('logout')" method="post" as="button">
         Odhlásit se

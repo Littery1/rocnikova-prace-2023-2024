@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Event;
 use Inertia\Controller;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\EventResource;
-use App\Http\Resources\LocationResource;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Resources\LocationResource;
 
 class EventController extends Controller
 {
@@ -88,5 +90,20 @@ class EventController extends Controller
         $event->delete();
 
         return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
+    }
+    public function showMyEvents()
+    {
+        $events = Event::all();
+
+  
+        $user = auth()->user();
+        $userEvents = $events->filter(function ($event) use ($user) {
+            return $event->users_id === $user->id;
+        });
+
+
+        return inertia('Events/ShowMyEvents', [
+            'events' => $userEvents,
+        ]);
     }
 }
