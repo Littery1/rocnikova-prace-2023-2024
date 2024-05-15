@@ -7,6 +7,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadImagesController;
 use App\Http\Controllers\DeleteTemporaryImagesController;
+use App\Http\Controllers\EventLocationController;
 use App\Http\Controllers\UploadTemporaryImagesController;
 
 /*
@@ -42,6 +43,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/create-event', function () {
         return Inertia::render('Events/CreateEvent');
     })->name('create-event');
+
+    Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.index');
+
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
