@@ -44,8 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Events/CreateEvent');
     })->name('create-event');
 
-    Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.index');
-
+    Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.store');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
