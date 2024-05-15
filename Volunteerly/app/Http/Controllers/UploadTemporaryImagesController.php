@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TemporaryImages;
+use Illuminate\Support\Facades\Auth;
 
 class UploadTemporaryImagesController extends Controller
 {
@@ -13,7 +14,7 @@ class UploadTemporaryImagesController extends Controller
         if($request->hasFile('image')) {
             $image = $request->file('image');
             $fileName = $image->getClientOriginalName();
-            $folder = uniqid('image-', true);
+            $folder = Auth::id();
             $image->move(public_path('images/tmp/' . $folder), $fileName);
             
             TemporaryImages::create([

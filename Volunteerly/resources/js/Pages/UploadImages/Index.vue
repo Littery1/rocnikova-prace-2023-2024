@@ -14,14 +14,13 @@
                         'X-CSRF-TOKEN': $page.props.csrf_token
                     }
                 }" />
-            <fwb-button type="submit">Submit</fwb-button>
+            <fwb-button type="submit">Potvrdit</fwb-button>
         </form>
     </div>
 
 </template>
 <script setup>
-import { Head, useForm } from '@inertiajs/inertia-vue3';
-import { ref } from 'vue';
+import { useForm } from '@inertiajs/inertia-vue3';
 import vueFilePond from 'vue-filepond';
 import FilePondImagePreview from 'filepond-plugin-image-preview';
 import FilePondFileTypeValidation from 'filepond-plugin-file-validate-type';
