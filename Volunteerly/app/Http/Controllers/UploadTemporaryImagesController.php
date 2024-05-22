@@ -13,7 +13,8 @@ class UploadTemporaryImagesController extends Controller
 
         if($request->hasFile('image')) {
             $image = $request->file('image');
-            $fileName = $image->getClientOriginalName();
+            $currentDateTime = now()->format('Ymd_His');
+            $fileName = $currentDateTime . '_' . $image->getClientOriginalName();
             $folder = Auth::id();
             $image->move(public_path('images/tmp/' . $folder), $fileName);
             

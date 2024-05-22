@@ -19,10 +19,12 @@ class UploadImagesController extends Controller
     {
         $temporaryImages = TemporaryImages::whereIn('folder', $request->images)->get();
         foreach ($temporaryImages as $temporaryImage) {
-            Storage::copy('images/tmp/' . $temporaryImage->folder . '/' . $temporaryImage->file, 'images/' . $temporaryImage->folder . '/' . $temporaryImage->file);
+            $path = $temporaryImage->folder . '/' . $temporaryImage->file;
+
+            Storage::copy('images/tmp/' . $path, 'images/' . $path);
             Image::create([                
                 'name' => $temporaryImage->file,
-                'path' => $temporaryImage->folder . '/' . $temporaryImage->file
+                'path' => $path
             ]);
             $path = 'images/tmp/' . $temporaryImage->folder;
             File::deleteDirectory($path);
