@@ -25,6 +25,10 @@ class Event extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id'); // Specify the foreign key name
+        return $this->belongsTo(User::class, 'users_id');
+    }
+    public function image()
+    {
+        return $this->belongsTo(Image::class, 'images_id');
     }
 }

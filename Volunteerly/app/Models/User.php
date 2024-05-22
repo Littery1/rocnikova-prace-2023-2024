@@ -45,6 +45,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
     public function events()
     {
-        return $this->hasMany(Event::class, 'users_id'); // Specify the foreign key name
+        return $this->hasMany(Event::class, 'users_id');
     }
 }

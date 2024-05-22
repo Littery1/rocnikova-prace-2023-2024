@@ -24,12 +24,9 @@
                                     class="flex flex-col items-center justify-center p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
                                     <div class="flex items
                                     -center justify-center w-20 h-20 bg-gray-200 rounded-full">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-400"
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                        </svg>
                                     </div>
+                                    {{ event }}
+
                                 </div>
                             </template>
                         </div>
@@ -43,8 +40,7 @@
 </template>
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import { Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     events: {

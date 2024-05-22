@@ -10,6 +10,7 @@ class TemporaryImages extends Model
     use HasFactory;
     
     protected $fillable = [
-        'folder', 'file',
+        'folder', 
+        'file',
     ];
 }
