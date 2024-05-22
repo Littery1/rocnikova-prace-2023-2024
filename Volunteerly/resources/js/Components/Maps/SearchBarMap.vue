@@ -27,8 +27,8 @@ onMounted(async () => {
 });
 
 const handleMapClick = (event) => {
-    const latitude = event.latLng.lat();
-    const longitude = event.latLng.lng();
+    const latitude = event.latLng.lat().toFixed(7);
+    const longitude = event.latLng.lng().toFixed(7);
     const geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({ location: event.latLng, language: 'cs' }, (results, status) => {

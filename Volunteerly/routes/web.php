@@ -43,7 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/create-event', function () {
         return Inertia::render('Events/CreateEvent');
     })->name('create-event');
-
+    
     Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.store');
 });
 Route::middleware('auth')->group(function () {

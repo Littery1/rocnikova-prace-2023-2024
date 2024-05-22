@@ -23,7 +23,8 @@ const toggleModal = () => {
 
 const form = useForm({
     name: '',
-    coordinates: '',
+    latitude: '',
+    longitude: '',
     province: '',
     street: '',
     city: '',
@@ -33,11 +34,15 @@ const form = useForm({
 });
 
 const handleLocationSelected = (details) => {
+    form.latitude = details.latitude;
+    form.longitude = details.longitude;
     form.coordinates = `${details.latitude}, ${details.longitude}`;
     form.province = details.province;
     form.street = details.street;
     form.city = details.city;
 };
+
+
 
 </script>
 <template>
@@ -75,8 +80,8 @@ const handleLocationSelected = (details) => {
                                             @update:isShowModal="showModal = $event">
                                         </ModalWindow>
                                     </div>
-
                                 </div>
+
                                 <div class="w-full">
                                     <label for="province"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kraj</label>
