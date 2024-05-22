@@ -22,7 +22,7 @@ const currentPage = ref(parseInt(new URLSearchParams(window.location.search).get
 
 function goToPage(page) {
     currentPage.value = page;
-    router.visit(`/eventes?page=${page}&clickedPage=${page}`, {
+    router.visit(`/?page=${page}&clickedPage=${page}`, {
         preserveScroll: true
     });
 }
