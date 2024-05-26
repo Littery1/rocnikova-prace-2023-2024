@@ -18,8 +18,8 @@ class EventLocationController extends Controller
         return inertia('Welcome', ['events' => $events, 'locations' => $locations]);
     }
     public function store(Request $request)
-    {        
-        $validatedEventData = $request->validate([
+    {
+        $eventData = $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
             'dateStart' => 'required|date',
@@ -36,7 +36,10 @@ class EventLocationController extends Controller
 
         $location = Location::create($locationData);
 
-        $eventData = array_merge($validatedEventData, ['locations_id' => $location->id, 'users_id' => auth()->user()->getAuthIdentifier()]);
+
+        $eventData['locations_id'] = $location->id;
+        $userId = auth()->user()->getAuthIdentifier();
+        $eventData['users_id'] = $userId;
         Event::create($eventData);
 
         return redirect()->route('welcome');
