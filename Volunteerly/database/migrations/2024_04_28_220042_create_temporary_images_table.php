@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('temporary_images', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('folder');
             $table->string('file');
             $table->timestamps();
