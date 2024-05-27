@@ -15,9 +15,10 @@ class Event extends Model
         'dateStart',
         'dateEnd',
         'locations_id',
-        'users_id'        
+        'users_id',
+        'images_id',        
     ];
-    protected $with = ['location', 'user'];
+    protected $with = ['location', 'user', 'image'];
     
     public function location()
     {
@@ -29,6 +30,8 @@ class Event extends Model
     }
     public function image()
     {
-        return $this->belongsTo(Image::class, 'images_id');
+        return $this->hasMany(Image::class, 'events_id');
     }
+
+    
 }

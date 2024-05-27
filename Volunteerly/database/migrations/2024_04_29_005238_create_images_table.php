@@ -15,8 +15,12 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('path');
-            $table->bigInteger('events_id')->nullable();
+            $table->bigInteger('events_id')->nullable(); // Change the column name to 'event_id'
             $table->timestamps();
+        });
+
+        Schema::table('images', function (Blueprint $table) {
+            $table->foreign('events_id')->references('id')->on('events')->onDelete('cascade');
         });
     }
 

@@ -20,5 +20,6 @@ class ImageSeeder extends Seeder
             Image::factory()->count(36)->create([
                 'events_id' => $event->id,
             ]);
-        }    }
+        }   
+     }
 }

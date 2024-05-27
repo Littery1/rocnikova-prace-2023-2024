@@ -12,7 +12,7 @@ use App\Http\Resources\EventResource;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Resources\LocationResource;
-
+use App\Models\Image;
 
 class EventController extends Controller
 {
@@ -96,6 +96,7 @@ class EventController extends Controller
     public function showMyEvents()
     {
         $events = Event::all();
+        
 
         $user = auth()->user();
         $userEvents = $events->filter(function ($event) use ($user) {
