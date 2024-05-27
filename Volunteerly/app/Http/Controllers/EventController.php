@@ -90,7 +90,7 @@ class EventController extends Controller
     {
         $event->delete();
 
-        return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
+        return redirect()->route('my-events')->with('success', 'Událost vymazána.' );
     }
     public function showMyEvents()
     {

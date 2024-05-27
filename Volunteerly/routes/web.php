@@ -21,10 +21,7 @@ use App\Http\Controllers\UploadTemporaryImagesController;
 |
 */
 
-Route::get('/upload-images', [UploadImagesController::class, 'index'])->name('uploadImages.index');
-Route::post('/upload-images_upload', [UploadImagesController::class, 'upload'])->name('UploadImages.upload');
-Route::post('/upload-temp-images', [UploadTemporaryImagesController::class, 'upload'])->name('UploadTemporaryImages.upload');
-Route::delete('/revert/{folder}', [DeleteTemporaryImagesController::class, 'delete'])->name('DeleteTemporaryImages.delete');
+
 
 Route::get('/', [EventController::class, 'index'])->name('welcome');
 Route::get('/event{id}', [EventController::class, 'show'])->name('events.show');
@@ -38,7 +35,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/my-events', [EventController::class, 'showMyEvents'])->name('my-events');  
 
     Route::get('/create-event', function () {
         return Inertia::render('Events/CreateEvent');
@@ -51,8 +47,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/my-events', [EventController::class, 'showMyEvents'])->name('my-events');  
     Route::get('/edit-event{id}', [EventController::class, 'edit'])->name('events.edit');
-    Route::put('/update-event{id}', [EventController::class, 'update'])->name('event.update');
+    Route::put('/update-event/{id}', [EventController::class, 'update'])->name('event.update');
+    Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+
+
+    Route::get('/upload-images', [UploadImagesController::class, 'index'])->name('uploadImages.index');
+    Route::post('/upload-images_upload', [UploadImagesController::class, 'upload'])->name('UploadImages.upload');
+    Route::post('/upload-temp-images', [UploadTemporaryImagesController::class, 'upload'])->name('UploadTemporaryImages.upload');
+    Route::delete('/revert/{folder}', [DeleteTemporaryImagesController::class, 'delete'])->name('DeleteTemporaryImages.delete');
 
 });
 
