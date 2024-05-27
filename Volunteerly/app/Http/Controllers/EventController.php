@@ -53,17 +53,18 @@ class EventController extends Controller
 
         Event::create($eventData);
 
-        // Redirect to the appropriate page
         return redirect()->route('welcome');
     }
-    public function edit(Event $event)
+    public function edit($id)
     {
-        return view('events.edit', compact('event'));
+        $event = Event::findOrFail($id);
+        return inertia('Events/Edit', [
+            'event' => new EventResource($event),
+        ]);
     }
 
     public function update(Request $request, Event $event)
     {
-        // Validate input
         $validatedData = $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
@@ -75,7 +76,7 @@ class EventController extends Controller
 
         $event->update($validatedData);
 
-        return redirect()->route('events.index')->with('success', 'Event updated successfully.');
+        return redirect()->route('events.index');
     }
     public function show($id)
     {
@@ -95,7 +96,6 @@ class EventController extends Controller
     {
         $events = Event::all();
 
-  
         $user = auth()->user();
         $userEvents = $events->filter(function ($event) use ($user) {
             return $event->users_id === $user->id;
@@ -106,4 +106,6 @@ class EventController extends Controller
             'events' => $userEvents,
         ]);
     }
+
+
 }

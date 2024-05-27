@@ -16,3 +16,7 @@ dodelat profil hostitele
 
 pokazde po kliknuti submit se presmeruje
 
+resources\js\Components\FormEditEvent.vue
+
+formulare se znovu nacte po potvrzeni a nic se nedeje
+

@@ -50,9 +50,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/edit-event{id}', [EventController::class, 'edit'])->name('events.edit');
+    Route::put('/update-event{id}', [EventController::class, 'update'])->name('event.update');
+
 });
 
 Route::resource('/users', ProfileController::class);
+
 
 
 require __DIR__ . '/auth.php';

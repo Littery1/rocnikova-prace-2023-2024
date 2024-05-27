@@ -20,14 +20,28 @@
 
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                             <template v-for="event in events" :key="event.id">
-                                <div
-                                    class="flex flex-col items-center justify-center p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-                                    <div class="flex items
-                                    -center justify-center w-20 h-20 bg-gray-200 rounded-full">
-                                    </div>
-                                    {{ event }}
+                                <InertiaLink :href="'/edit-event' + event.id">
 
-                                </div>
+                                    <div
+                                        class="flex flex-col items-center justify-center p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+                                        <div class="flex items
+                                    -center justify-center w-20 h-20 bg-gray-200 rounded-full">
+                                        </div>
+                                        <div class="mt-4">
+                                            <h3 class="text-lg font-semibold">{{ event.name }}</h3>
+                                            <p class="text-gray-500">Začátek: {{ event.dateStart }}</p>
+                                            <p class="text-gray-500">Konec: {{ event.dateEnd }}</p>
+                                            <div class="flex items-center">
+                                                <fwb-img alt="Map Pointer" class="w-4 h-auto m-1"
+                                                    src="/images/MapPointer.png"></fwb-img>
+                                                <p class="text-xs font-semibold text-gray-500 ml-2">
+                                                    {{ event.location.city }}, {{ event.location.province }}
+                                                </p>
+                                                <p class="text-gray-500">{{ event.description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </InertiaLink>
                             </template>
                         </div>
 
@@ -41,6 +55,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import { FwbImg } from 'flowbite-vue'
+import { InertiaLink } from '@inertiajs/inertia-vue3';
+
 
 const props = defineProps({
     events: {
@@ -48,4 +65,8 @@ const props = defineProps({
         required: true,
     },
 });
+
+const navigateToEvent = (id) => {
+
+}
 </script>
