@@ -14,7 +14,7 @@
                         'X-CSRF-TOKEN': $page.props.csrf_token
                     }
                 }" />
-            <fwb-button type="submit">Potvrdit</fwb-button>
+            <fwb-button type="submit">Nahrát fotky</fwb-button>
         </form>
     </div>
 
