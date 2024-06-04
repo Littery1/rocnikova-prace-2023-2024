@@ -55,7 +55,7 @@
 import { ref } from 'vue';
 
 const previous = () => {
-    // Add logic for previous action
+        // Add logic for previous action
 };
 
 const next = () => {

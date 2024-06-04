@@ -53,7 +53,7 @@
                     <fwb-img class=" w-[5vw]" src="/images/Rating.png" />
                     <h2 class="text-xl ml-2 text-blue-500 font-bold">Hodnocení:</h2>
                 </div>
-                <Comments page-language="cs" :website-id="11002" :page-id="currentUrl" class="w-[56vw]" />
+                <Comments page-language="cs" :website-id="11237" :page-id="currentUrl" class="w-[56vw]" />
             </div>
         </div>
         <div

@@ -1,6 +1,6 @@
 <template>
-    <div class="m-5 flex flex-col items-center">
-        <div class="w-full overflow-auto h-[25vh]">
+    <div class="flex flex-col items-center">
+        <div class="w-full overflow-auto h-[16vh]">
             <table class="min-w-full">
                 <!-- First row: Month abbreviations -->
                 <tr>
@@ -12,15 +12,14 @@
                 <!-- Second row: Checkmarks -->
                 <tr>
                     <td v-for="(abbreviation, index) in monthAbbreviations" :key="'checkmark-' + index"
-                        class="text-center ">
-                        <p v-if="eventMonths.includes(abbreviation)" class="text-white text-2xl bg-green-400 h-[10vh]">✓</p>
-                        <div v-else></div>
+                        class="text-center border-white">
+                        <p v-if="eventMonths.includes(abbreviation)" class="text-white text-2xl bg-green-400 ">✓
+                        </p>
                     </td>
                 </tr>
             </table>
         </div>
-
-        <div class="flex justify-center items-center mt-4">
+        <div class="flex justify-center items-center ">
             <fwb-button class="mr-4" @click="previousYear">←</fwb-button>
             <span>{{ currentYear }}</span>
             <fwb-button class="ml-4" @click="nextYear">→</fwb-button>
