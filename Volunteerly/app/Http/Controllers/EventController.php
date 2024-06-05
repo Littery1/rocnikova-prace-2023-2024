@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Inertia\Inertia;
 use App\Models\Event;
 use App\Models\Image;
 use Inertia\Controller;
@@ -14,6 +15,7 @@ use App\Http\Resources\EventResource;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Resources\LocationResource;
+use Illuminate\Support\Facades\Redirect;
 
 class EventController extends Controller
 {
@@ -57,12 +59,12 @@ class EventController extends Controller
 
         return redirect()->route('welcome');
     }
-    public function edit($id)
+    public function edit(Event $event)
     {
-        $event = Event::findOrFail($id);
-        return inertia('Events/Edit', [
+        return Inertia::render('Events/Edit', [
             'event' => new EventResource($event),
         ]);
+
     }
 
     public function update(Request $request, Event $event)
@@ -72,13 +74,11 @@ class EventController extends Controller
             'description' => 'required|string',
             'dateStart' => 'required|date',
             'dateEnd' => 'required|date|after:dateStart',
-            'locations_id' => 'required|exists:locations,id',
-            'users_id' => 'required|exists:users,id',
         ]);
 
         $event->update($validatedData);
 
-        return redirect()->route('events.index');
+        return Redirect::route('my-events');
     }
     public function show($id)
     {

@@ -19,7 +19,7 @@
                                 <div class="flex items-center justify-center w-20 h-20 bg-gray-200 rounded-full">
                                 </div>
                                 <!-- Trash Can Icon Link -->
-                                <div class="absolute top-0 left-0 mt-2 mr-2" @click="deleteEvent(event.id)">
+                                <div class="absolute top-0 left-0 mt-2 mr-2" @click.prevent="deleteEvent(event.id)">
                                     <img alt="Trash Can" class="w-6 h-auto" src="/images/TrashCan.png">
                                 </div>
 

@@ -48,8 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/my-events', [EventController::class, 'showMyEvents'])->name('my-events');  
-    Route::get('/edit-event{id}', [EventController::class, 'edit'])->name('events.edit');
-    Route::put('/update-event/{id}', [EventController::class, 'update'])->name('event.update');
+    Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
+    Route::put('/events/{event}', [EventController::class, 'update'])->name('event.update');
     Route::delete('/my-events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
 

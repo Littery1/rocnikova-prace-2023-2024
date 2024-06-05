@@ -32,10 +32,12 @@ import FormEditEvent from '@/Components/FormEditEvent.vue';
 import { defineProps } from 'vue';
 import UploadImages from '@/Pages/UploadImages/Index.vue';
 import Gallery from '@/Components/Gallery.vue';
-defineProps({
+
+const props = defineProps({
     event: {
         type: Object,
         required: true,
     },
 });
+
 </script>

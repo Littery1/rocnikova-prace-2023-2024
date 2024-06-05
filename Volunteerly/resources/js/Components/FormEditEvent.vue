@@ -6,13 +6,20 @@ import { Czech } from 'flatpickr/dist/l10n/cs.js';
 import 'flatpickr/dist/themes/light.css';
 import { useForm } from '@inertiajs/inertia-vue3';
 import { defineProps } from 'vue';
+import { router } from '@inertiajs/vue3'
+
 
 const props = defineProps({
     event: {
         type: Object,
         required: true,
     },
+    errors: {
+        type: Object,
+    },
 });
+
+
 const showModal = ref(false);
 
 onMounted(() => {
@@ -29,15 +36,15 @@ const toggleModal = () => {
 };
 
 const form = useForm({
-    name: '',
-    latitude: '',
-    longitude: '',
-    province: '',
-    street: '',
-    city: '',
-    description: '',
-    dateStart: '',
-    dateEnd: '',
+    name: props.event.data.name,
+    latitude: props.event.data.latitude,
+    longitude: props.event.data.longitude,
+    province: props.event.data.location.province,
+    street: props.event.data.location.street,
+    city: props.event.data.location.city,
+    description: props.event.data.description,
+    dateStart: props.event.data.dateStart,
+    dateEnd: props.event.data.dateEnd,
 });
 
 const handleLocationSelected = (details) => {
@@ -50,8 +57,8 @@ const handleLocationSelected = (details) => {
 
 const coords = props.event.data.location.latitude + ', ' + props.event.data.location.longitude; 
 
-const submitForm = () => {
-    form.put(route('event.update', { id: props.event.data.id }), form.data());
+const submitForm = ($id) => {
+  router.put('/events/' + $id, form);
 };
 </script>
 <template>
@@ -59,12 +66,12 @@ const submitForm = () => {
                 <section class="bg-white dark:bg-gray-900">
                     <div class=" mx-auto max-w-2xl lg:py-16">
                         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Upravit akci</h2>
-                        <form @submit.prevent="submitForm">
+                        <form @submit.prevent="submitForm(event.data.id)">
                             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                                 <div class="sm:col-span-2">
                                     <label for="name"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Název</label>
-                                    <input type="text" name="name" id="name" :value="event.data.name"
+                                    <input type="text" name="name" id="name" v-model="form.name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Napište název Vaší akce">
                                 </div>
@@ -75,7 +82,7 @@ const submitForm = () => {
                                         Souřadnice
                                     </label>
                                     <div class="flex items-center">
-                                        <input type="text" name="coordinates" id="coordinates" :value="coords" readonly
+                                        <input type="text" name="coordinates" id="coordinates" v-model="coords" readonly
                                             class="flex-grow bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             placeholder="Vyberte bod na mapě">
                                         <img src="/images/SearchMapsLogo.png" alt="SearchMapsLogo"
@@ -90,22 +97,21 @@ const submitForm = () => {
                                 <div class="w-full">
                                     <label for="province"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kraj</label>
-                                    <input type="text" name="province" id="province"
-                                        :value="event.data.location.province"
+                                    <input type="text" name="province" id="province" v-model="form.province"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Kraj">
                                 </div>
                                 <div class="w-full">
-                                    <label for="street"
+                                    <label for="street" 
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ulice</label>
-                                    <input type="text" name="street" id="street" :value="event.data.location.street"
+                                    <input type="text" name="street" id="street" v-model="form.street"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Ulice (Nepovinné)">
                                 </div>
                                 <div class="w-full">
                                     <label for="city"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Město</label>
-                                    <input type="text" name="city" id="city" :value="event.data.location.city"
+                                    <input type="text" name="city" id="city" v-model="form.city"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Město">
                                 </div>
@@ -123,7 +129,7 @@ const submitForm = () => {
                                                     clip-rule="evenodd"></path>
                                             </svg>
                                         </div>
-                                        <input :value="event.data.dateStart" type="datetime-local"
+                                        <input type="datetime-local" name="dateStart" id="start" v-model="form.dateStart"
                                             class=" flatpickr bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-3 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Zadejte začátek akce">
                                     </div>
@@ -143,7 +149,7 @@ const submitForm = () => {
                                                     clip-rule="evenodd"></path>
                                             </svg>
                                         </div>
-                                        <input datepicker datepicker-autohide :value="event.data.dateEnd"
+                                        <input datepicker datepicker-autohide v-model="form.dateEnd" name="dateEnd" id="end"
                                             type="datetime-local"
                                             class="flatpickr bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-3 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Zadejte konec akce">
@@ -153,9 +159,9 @@ const submitForm = () => {
                                 <div class="sm:col-span-2  mb-6">
                                     <label for="description"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Popis</label>
-                                    <textarea id="description" rows="8"
+                                    <textarea id="description" rows="8" name="description" v-model="form.description"
                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="O čem bude Vaše akce?" :value="event.data.description"></textarea>
+                                        placeholder="O čem bude Vaše akce?"></textarea>
                                 </div>
                             </div>
 
