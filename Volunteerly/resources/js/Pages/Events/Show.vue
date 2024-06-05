@@ -4,7 +4,7 @@
         <div>
             <h1 class="text-blue-600 text-4xl text-center font-bold ">{{ event.data.name }}</h1>
 
-            <Gallery class=" flex items-center min-h-screen" style="transform: scale(0.8);" />       
+            <Gallery :images="images" :event="event" :show-trash-bin="false" class=" flex items-center min-h-screen" style="transform: scale(0.8);" />       
 
                 <Details :event="event" />
 
@@ -33,6 +33,10 @@ onMounted(async () => {
 });
 defineProps({
     event: {
+        type: Object,
+        required: true,
+    },
+    images: {
         type: Object,
         required: true,
     },

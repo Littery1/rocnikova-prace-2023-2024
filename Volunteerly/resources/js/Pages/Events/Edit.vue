@@ -11,7 +11,7 @@
                 class="bg-white overflow-hidden shadow-sm sm:rounded-lg w-full md:w-3/4 lg:w-1/2 flex flex-col items-center">
                 <FormEditEvent :event="event" />
                 <div class=" w-7/12 pb-4">
-                    <Gallery :event="event" :images="images" />
+                    <Gallery :event="event" :images="images" :show-trash-bin="true" />
                 </div>
                 <div class=" w-7/12 pb-4">
                     <UploadImages :event="event" :images="images" />

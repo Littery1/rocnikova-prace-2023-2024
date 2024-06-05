@@ -92,8 +92,18 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
+        $events = Event::all();
+        $images = Image::all();
+
+        foreach ($events as $event) {
+            $eventImages = $images->filter(function ($image) use ($event) {
+                return $image->events_id === $event->id;
+            });
+        }
+
         return inertia('Events/Show', [
             'event' => new EventResource($event),
+            'images' => $eventImages,
         ]);
     }
 

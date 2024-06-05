@@ -4,10 +4,11 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadImagesController;
-use App\Http\Controllers\DeleteTemporaryImagesController;
 use App\Http\Controllers\EventLocationController;
+use App\Http\Controllers\DeleteTemporaryImagesController;
 use App\Http\Controllers\UploadTemporaryImagesController;
 
 /*
@@ -42,6 +43,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::post('/eventsLocations', [EventLocationController::class, 'store'])->name('eventsLocations.store');
 });
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -52,6 +56,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/events/{event}', [EventController::class, 'update'])->name('event.update');
     Route::delete('/my-events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
+
+    Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 
     Route::get('/upload-images', [UploadImagesController::class, 'index'])->name('uploadImages.index');
     Route::post('/upload-images_upload', [UploadImagesController::class, 'upload'])->name('UploadImages.upload');

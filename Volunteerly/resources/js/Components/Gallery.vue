@@ -20,24 +20,54 @@
         </div>
         <div class=" flex flex-wrap m-2">
             <div class="flex w-1/2 flex-wrap">
-                <div class="w-1/2 p-1 md:p-2">
+                <div class="w-1/2 p-1 md:p-2 relative">
+                    <!-- Trash Can Icon Link -->
+                    <div class="absolute top-0 left-0 mt-2 ml-2" @click="deleteImage(image1.id)"
+                        v-if="props.showTrashBin">
+                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
+                    </div>
                     <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path1" />
                 </div>
-                <div class="w-1/2 p-1 md:p-2">
+                <div class="w-1/2 p-1 md:p-2 relative">
                     <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path2" />
+                    <!-- Trash Can Icon Link -->
+                    <div class="absolute top-0 left-0 mt-2 ml-2" @click.prevent="deleteImage(image2.id)"
+                        v-if="props.showTrashBin">
+                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
+                    </div>
                 </div>
-                <div class="w-full p-1 md:p-2">
+                <div class="w-full p-1 md:p-2 relative">
+                    <!-- Trash Can Icon Link -->
+                    <div class="absolute top-0 left-0 mt-2 ml-2" @click.prevent="deleteImage(image3.id)"
+                        v-if="props.showTrashBin">
+                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
+                    </div>
                     <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path3" />
                 </div>
             </div>
-            <div class="flex w-1/2 flex-wrap">
+            <div class="flex w-1/2 flex-wrap relative">
                 <div class="w-full p-1 md:p-2">
+                    <!-- Trash Can Icon Link -->
+                    <div class="absolute top-0 left-0 mt-2 ml-2" @click.prevent="deleteImage(image4.id)"
+                        v-if="props.showTrashBin">
+                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
+                    </div>
                     <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path4" />
                 </div>
-                <div class="w-1/2 p-1 md:p-2">
+                <div class="w-1/2 p-1 md:p-2 relative">
+                    <!-- Trash Can Icon Link -->
+                    <div class="absolute top-0 left-0 mt-2 ml-2" @click.prevent="deleteImage(image5.id)"
+                        v-if="props.showTrashBin">
+                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
+                    </div>
                     <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path5" />
                 </div>
-                <div class="w-1/2 p-1 md:p-2">
+                <div class="w-1/2 p-1 md:p-2 relative">
+                    <!-- Trash Can Icon Link -->
+                    <div class="absolute top-0 left-0 mt-2 ml-2" @click.prevent="deleteImage(image6.id)"
+                        v-if="props.showTrashBin">
+                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
+                    </div>
                     <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path6" />
                 </div>
             </div>
@@ -48,20 +78,49 @@
 <script setup>
 import { defineProps } from 'vue';
 import { ref } from 'vue';
+import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
-    event: {
-        type: Object,
-        required: true,
-    },
     images: {
         type: Object,
         required: true,
     },
+    event: {
+        type: Object,
+        required: true,
+    },
+    showTrashBin: {
+        type: Boolean,
+        default: true,
+    },
 });
+const deleteForm = useForm({});
+
+const deleteImage = (imageId) => {
+    if (confirm('Opravdu chcete smazat tuto fotku?')) {
+        deleteForm.delete(route('images.destroy', imageId), {
+            onSuccess: () => {
+                Images.value = Images.value.filter(image => image.id !== imageId);
+                updatePaths();
+            },
+            onError: (errors) => {
+                console.error("Failed to delete image:", errors);
+            }
+        });
+    }
+};
+
 
 const Images = ref(Object.values(props.images));
 let startIndex = ref(0);
+
+const image1 = ref(Images.value[startIndex.value] || null);
+const image2 = ref(Images.value[startIndex.value + 1] || null);
+const image3 = ref(Images.value[startIndex.value + 2] || null);
+const image4 = ref(Images.value[startIndex.value + 3] || null);
+const image5 = ref(Images.value[startIndex.value + 4] || null);
+const image6 = ref(Images.value[startIndex.value + 5] || null);
+
 
 const path1 = ref(Images.value[startIndex.value]?.path || '');
 const path2 = ref(Images.value[startIndex.value + 1]?.path || '');
@@ -85,14 +144,20 @@ const previous = () => {
 };
 
 const updatePaths = () => {
-    path1.value = Images.value[startIndex.value]?.path || '';
-    path2.value = Images.value[startIndex.value + 1]?.path || '';
-    path3.value = Images.value[startIndex.value + 2]?.path || '';
-    path4.value = Images.value[startIndex.value + 3]?.path || '';
-    path5.value = Images.value[startIndex.value + 4]?.path || '';
-    path6.value = Images.value[startIndex.value + 5]?.path || '';
+    let images = Images.value.slice(startIndex.value, startIndex.value + 6);
+    if (images.length < 6) {
+        let prevImages = Images.value.slice(0, startIndex.value).reverse();
+        while (images.length < 6 && prevImages.length > 0) {
+            images.unshift(prevImages.shift());
+        }
+    }
+
+    [image1.value, image2.value, image3.value, image4.value, image5.value, image6.value] = images;
+
+    [path1.value, path2.value, path3.value, path4.value, path5.value, path6.value] = images.map(image => image?.path || '');
 };
 
+    
 updatePaths();
 
 
