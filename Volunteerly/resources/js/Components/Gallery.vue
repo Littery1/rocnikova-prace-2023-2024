@@ -21,30 +21,24 @@
         <div class=" flex flex-wrap m-2">
             <div class="flex w-1/2 flex-wrap">
                 <div class="w-1/2 p-1 md:p-2">
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
-                        src="\images\BlankPhoto.jpg" />
+                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path1" />
                 </div>
                 <div class="w-1/2 p-1 md:p-2">
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
-                        src="\images\BlankPhoto.jpg" />
+                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path2" />
                 </div>
                 <div class="w-full p-1 md:p-2">
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
-                        src="\images\BlankPhoto.jpg" />
+                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path3" />
                 </div>
             </div>
             <div class="flex w-1/2 flex-wrap">
                 <div class="w-full p-1 md:p-2">
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
-                        src="\images\BlankPhoto.jpg" />
+                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path4" />
                 </div>
                 <div class="w-1/2 p-1 md:p-2">
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
-                        src="\images\BlankPhoto.jpg" />
+                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path5" />
                 </div>
                 <div class="w-1/2 p-1 md:p-2">
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
-                        src="\images\BlankPhoto.jpg" />
+                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path6" />
                 </div>
             </div>
         </div>
@@ -52,15 +46,56 @@
 </template>
 
 <script setup>
+import { defineProps } from 'vue';
 import { ref } from 'vue';
 
-const previous = () => {
-        // Add logic for previous action
-};
+const props = defineProps({
+    event: {
+        type: Object,
+        required: true,
+    },
+    images: {
+        type: Object,
+        required: true,
+    },
+});
+
+const Images = ref(Object.values(props.images));
+let startIndex = ref(0);
+
+const path1 = ref(Images.value[startIndex.value]?.path || '');
+const path2 = ref(Images.value[startIndex.value + 1]?.path || '');
+const path3 = ref(Images.value[startIndex.value + 2]?.path || '');
+const path4 = ref(Images.value[startIndex.value + 3]?.path || '');
+const path5 = ref(Images.value[startIndex.value + 4]?.path || '');
+const path6 = ref(Images.value[startIndex.value + 5]?.path || '');
 
 const next = () => {
-    // Add logic for next action
+    if (startIndex.value + 6 < Images.value.length) {
+        startIndex.value += 6;
+        updatePaths();
+    }
 };
+
+const previous = () => {
+    if (startIndex.value - 6 >= 0) {
+        startIndex.value -= 6;
+        updatePaths();
+    }
+};
+
+const updatePaths = () => {
+    path1.value = Images.value[startIndex.value]?.path || '';
+    path2.value = Images.value[startIndex.value + 1]?.path || '';
+    path3.value = Images.value[startIndex.value + 2]?.path || '';
+    path4.value = Images.value[startIndex.value + 3]?.path || '';
+    path5.value = Images.value[startIndex.value + 4]?.path || '';
+    path6.value = Images.value[startIndex.value + 5]?.path || '';
+};
+
+updatePaths();
+
+
 </script>
 
 <style>

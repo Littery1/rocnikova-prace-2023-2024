@@ -11,13 +11,13 @@
                 class="bg-white overflow-hidden shadow-sm sm:rounded-lg w-full md:w-3/4 lg:w-1/2 flex flex-col items-center">
                 <FormEditEvent :event="event" />
                 <div class=" w-7/12 pb-4">
-                    <Gallery />
+                    <Gallery :event="event" :images="images" />
                 </div>
-                    <div class=" w-7/12 pb-4">
-                        <UploadImages />
-                    </div>
+                <div class=" w-7/12 pb-4">
+                    <UploadImages :event="event" :images="images" />
                 </div>
             </div>
+        </div>
 
 
 
@@ -35,6 +35,10 @@ import Gallery from '@/Components/Gallery.vue';
 
 const props = defineProps({
     event: {
+        type: Object,
+        required: true,
+    },
+    images: {
         type: Object,
         required: true,
     },

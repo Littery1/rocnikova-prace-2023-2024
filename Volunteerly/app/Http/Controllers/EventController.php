@@ -61,10 +61,19 @@ class EventController extends Controller
     }
     public function edit(Event $event)
     {
+        $events = Event::all();
+        $images = Image::all();
+
+        foreach ($events as $event) {
+            $eventImages = $images->filter(function ($image) use ($event) {
+                return $image->events_id === $event->id;
+            });
+        }
+
         return Inertia::render('Events/Edit', [
             'event' => new EventResource($event),
+            'images' => $eventImages,
         ]);
-
     }
 
     public function update(Request $request, Event $event)
@@ -97,18 +106,23 @@ class EventController extends Controller
     public function showMyEvents()
     {
         $events = Event::all();
-        
+        $images = Image::all();
+
+
 
         $user = auth()->user();
+        foreach ($events as $event) {
+            $eventImages = $images->filter(function ($image) use ($event) {
+                return $image->events_id === $event->id;
+            });
+        }
         $userEvents = $events->filter(function ($event) use ($user) {
             return $event->users_id === $user->id;
         });
 
-
         return inertia('Events/ShowMyEvents', [
             'events' => $userEvents,
+            'images' => $eventImages,
         ]);
     }
-
-
 }

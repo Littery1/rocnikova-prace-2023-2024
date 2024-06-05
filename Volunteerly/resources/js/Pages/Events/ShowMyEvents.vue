@@ -57,6 +57,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    images: {
+        type: Object,
+        required: true,
+    },
 });
 const deleteForm= useForm({});
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Models\TemporaryImages;
@@ -15,7 +16,7 @@ class UploadImagesController extends Controller
 
         return inertia('UploadImages/Index');
     }
-    public function upload(Request $request)
+    public function upload(Request $request, Event $event)
     {
         $temporaryImages = TemporaryImages::whereIn('folder', $request->images)->get();
         foreach ($temporaryImages as $temporaryImage) {
@@ -24,7 +25,8 @@ class UploadImagesController extends Controller
             Storage::copy('images/tmp/' . $path, 'images/' . $path);
             Image::create([                
                 'name' => $temporaryImage->file,
-                'path' => $path
+                'path' => $path,
+                'events_id' => $event->id,
             ]);
             $path = 'images/tmp/' . $temporaryImage->folder;
             File::deleteDirectory($path);

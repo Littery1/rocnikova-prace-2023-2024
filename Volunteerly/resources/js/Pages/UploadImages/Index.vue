@@ -20,19 +20,35 @@
 
 </template>
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3';
 import vueFilePond from 'vue-filepond';
 import FilePondImagePreview from 'filepond-plugin-image-preview';
 import FilePondFileTypeValidation from 'filepond-plugin-file-validate-type';
 import "filepond/dist/filepond.min.css";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import { useForm } from '@inertiajs/inertia-vue3';
 import { FwbButton } from 'flowbite-vue'
 import { router } from '@inertiajs/vue3'
+import { defineProps } from 'vue';
+
+
+const props = defineProps({
+    event: {
+        type: Object,
+        required: true,
+    },
+    errors: {
+        type: Object,
+    },
+    images: {
+        type: Object,
+        required: true,
+    },
+});
 
 const FilePond = vueFilePond(FilePondImagePreview, FilePondFileTypeValidation);
 
 const form = useForm({
-    images: []
+    images: [props.event.data.image]
 });
 function handleFilePondLoad(response) {
     form.images.push(response);
