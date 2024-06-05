@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Image;
 use Inertia\Controller;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\EventResource;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Resources\LocationResource;
-use App\Models\Image;
 
 class EventController extends Controller
 {
@@ -91,7 +92,7 @@ class EventController extends Controller
     {
         $event->delete();
 
-        return redirect()->route('my-events')->with('success', 'Událost vymazána.' );
+        return back();
     }
     public function showMyEvents()
     {

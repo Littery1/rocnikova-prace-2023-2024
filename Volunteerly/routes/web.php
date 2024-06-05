@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-events', [EventController::class, 'showMyEvents'])->name('my-events');  
     Route::get('/edit-event{id}', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/update-event/{id}', [EventController::class, 'update'])->name('event.update');
-    Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+    Route::delete('/my-events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
 
     Route::get('/upload-images', [UploadImagesController::class, 'index'])->name('uploadImages.index');

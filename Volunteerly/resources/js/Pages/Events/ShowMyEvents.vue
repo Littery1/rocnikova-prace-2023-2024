@@ -1,5 +1,4 @@
 <template>
-    {{ events }}
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Moje Akce</h2>
@@ -20,7 +19,7 @@
                                 <div class="flex items-center justify-center w-20 h-20 bg-gray-200 rounded-full">
                                 </div>
                                 <!-- Trash Can Icon Link -->
-                                <div class="absolute top-0 left-0 mt-2 mr-2" @click="destroy(event.id, event.name)">
+                                <div class="absolute top-0 left-0 mt-2 mr-2" @click="deleteEvent(event.id)">
                                     <img alt="Trash Can" class="w-6 h-auto" src="/images/TrashCan.png">
                                 </div>
 
@@ -50,20 +49,21 @@
 </template>
 
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
-import { Inertia } from '@inertiajs/inertia';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
     events: {
-        type: Array,
+        type: Object,
         required: true,
     },
 });
+const deleteForm= useForm({});
 
-const destroy = (id, eventName) => {
-    if (confirm(`Opravdu chcete smazat událost "${eventName}"?`)) {
-        Inertia.delete(route('events.destroy', { id }));
+
+const deleteEvent = (eventId) => {
+    if (confirm('Opravdu chcete smazat tuto akci?')) {
+        deleteForm.delete(route('events.destroy', eventId));
     }
 }
 
