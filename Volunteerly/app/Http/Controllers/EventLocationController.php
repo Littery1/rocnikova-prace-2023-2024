@@ -42,7 +42,7 @@ class EventLocationController extends Controller
         $eventData['users_id'] = $userId;
         Event::create($eventData);
 
-        return redirect()->route('welcome');
+        return redirect()->route('my-events');
  }
 
 }

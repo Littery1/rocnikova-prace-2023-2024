@@ -41,9 +41,6 @@ const handleLocationSelected = (details) => {
     form.street = details.street;
     form.city = details.city;
 };
-
-
-
 </script>
 <template>
 
