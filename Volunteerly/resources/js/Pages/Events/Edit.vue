@@ -1,5 +1,5 @@
 <template>
-
+{{ images }}
     <Head title="Upravení akce" />
 
     <AuthenticatedLayout>

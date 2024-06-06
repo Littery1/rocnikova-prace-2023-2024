@@ -61,20 +61,20 @@ class EventController extends Controller
     }
     public function edit(Event $event)
     {
-        $events = Event::all();
+        // Retrieve all images
         $images = Image::all();
 
-        foreach ($events as $event) {
-            $eventImages = $images->filter(function ($image) use ($event) {
-                return $image->events_id === $event->id;
-            });
-        }
+        // Filter images that belong to the event being edited
+        $eventImages = $images->filter(function ($image) use ($event) {
+            return $image->events_id === $event->id;
+        });
 
         return Inertia::render('Events/Edit', [
             'event' => new EventResource($event),
             'images' => $eventImages,
         ]);
     }
+
 
     public function update(Request $request, Event $event)
     {
@@ -118,21 +118,27 @@ class EventController extends Controller
         $events = Event::all();
         $images = Image::all();
 
-
-
         $user = auth()->user();
-        foreach ($events as $event) {
-            $eventImages = $images->filter(function ($image) use ($event) {
-                return $image->events_id === $event->id;
-            });
-        }
+
+        // Filter events that belong to the authenticated user
         $userEvents = $events->filter(function ($event) use ($user) {
             return $event->users_id === $user->id;
         });
+
+        // Initialize an array to store images for each event
+        $eventImages = [];
+
+        foreach ($userEvents as $event) {
+            // Filter images that belong to the current event
+            $eventImages[$event->id] = $images->filter(function ($image) use ($event) {
+                return $image->events_id === $event->id;
+            });
+        }
 
         return inertia('Events/ShowMyEvents', [
             'events' => $userEvents,
             'images' => $eventImages,
         ]);
     }
+
 }

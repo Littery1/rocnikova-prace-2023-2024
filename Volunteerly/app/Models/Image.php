@@ -15,6 +15,6 @@ class Image extends Model
     ];
     public function event()
     {
-        return $this->belongsTo(Event::class, 'id');
+        return $this->belongsTo(Event::class, 'events_id');
     }
 }
