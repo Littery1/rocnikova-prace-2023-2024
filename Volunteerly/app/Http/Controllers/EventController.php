@@ -22,9 +22,11 @@ class EventController extends Controller
     public function index()
     {
         $events = EventResource::collection(Event::paginate(12));
-
+        $images = Image::all()->groupBy('events_id'); 
+        
         return inertia('Welcome', [
             'events' => $events,
+            'images' => $images,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,

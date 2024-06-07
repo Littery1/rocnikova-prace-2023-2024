@@ -6,7 +6,9 @@
                 <div v-for="event in events.data.sort((a, b) => a.id - b.id)" :key="event.id"
                     class="rounded-lg overflow-hidden">
                     <InertiaLink :href="'/event' + event.id">
-                        <fwb-img src="/images/BlankPhoto.jpg" />
+                        <!-- Display main image or fallback blank image -->
+                        <img :src="getMainImage(event.id) ? getMainImage(event.id).path : '/images/BlankPhoto.jpg'"
+                            class=" w-52 h-28 object-cover" alt="Event Image" />
                     </InertiaLink>
 
                     <div class="bg-opacity-50 text-black mt-1 text-center p-4">
@@ -39,12 +41,21 @@ import { FwbImg, FwbHeading } from 'flowbite-vue'
 import Pagination from './Pagination.vue';
 import { defineProps } from 'vue';
 import { InertiaLink } from '@inertiajs/inertia-vue3';
-defineProps({
+const props = defineProps({
     events: {
         type: Object,
         required: true,
     },
+    images: {
+        type: Object,
+        required: true,
+    },
 });
+
+const getMainImage = (eventId) => {
+    const imgs = Object.values(props.images).flat();
+    return imgs.find(image => image.events_id === eventId && image.type === 'main');
+};
 </script>
 
 <style>
