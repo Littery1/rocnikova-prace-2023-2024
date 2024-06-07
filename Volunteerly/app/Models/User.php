@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'is_Organizer',
+        'profile_picture_id',
     ];
 
     /**
@@ -47,4 +48,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Event::class, 'users_id');
     }
+    public function profilePicture()
+    {
+        return $this->belongsTo(Image::class, 'profile_picture_id');
+    }
+
 }

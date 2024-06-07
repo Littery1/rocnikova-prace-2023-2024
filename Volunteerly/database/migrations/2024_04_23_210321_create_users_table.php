@@ -20,6 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_Organizer')->default(false);
+            $table->unsignedBigInteger('profile_picture_id')->nullable()->unique(); 
+            $table->foreign('profile_picture_id')->references('id')->on('images')->onDelete('set null'); 
             $table->rememberToken();
             $table->timestamps();
         });

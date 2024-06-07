@@ -19,9 +19,10 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word,   
+            'name' => $this->faker->word,
             'path' => $this->faker->imageUrl(),
-            'events_id' => Event::inRandomOrder()->first()->id, 
+            'events_id' => Event::inRandomOrder()->first()->id,
+            'type' => $this->faker->randomElement(['main', 'plain', 'user']),
         ];
     }
 }
