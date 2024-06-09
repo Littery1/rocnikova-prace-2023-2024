@@ -2,7 +2,7 @@
     <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
 
         <div>
-            <h1 class="text-blue-600 text-4xl text-center font-bold ">{{ event.data.name }}</h1>
+            <h1 class="text-blue-600 text-4xl text-center font-bold mt-6">{{ event.data.name }}</h1>
 
             <Gallery :images="images" :event="event" :show-trash-bin="false" class=" flex items-center min-h-screen" style="transform: scale(0.8);" />       
 

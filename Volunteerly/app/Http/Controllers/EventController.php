@@ -63,17 +63,12 @@ class EventController extends Controller
     }
     public function edit(Event $event)
     {
-        // Retrieve all images
-        $images = Image::all();
+        $images = $event->image;
 
-        // Filter images that belong to the event being edited
-        $eventImages = $images->filter(function ($image) use ($event) {
-            return $image->events_id === $event->id;
-        });
 
         return Inertia::render('Events/Edit', [
             'event' => new EventResource($event),
-            'images' => $eventImages,
+            'images' => $images,
         ]);
     }
 
@@ -94,18 +89,12 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
-        $events = Event::all();
-        $images = Image::all();
+        $images = $event->image;
 
-        foreach ($events as $event) {
-            $eventImages = $images->filter(function ($image) use ($event) {
-                return $image->events_id === $event->id;
-            });
-        }
 
         return inertia('Events/Show', [
             'event' => new EventResource($event),
-            'images' => $eventImages,
+            'images' => $images,
         ]);
     }
 

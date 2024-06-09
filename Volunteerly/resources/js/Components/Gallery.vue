@@ -85,10 +85,6 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    event: {
-        type: Object,
-        required: true,
-    },
     showTrashBin: {
         type: Boolean,
         default: true,
