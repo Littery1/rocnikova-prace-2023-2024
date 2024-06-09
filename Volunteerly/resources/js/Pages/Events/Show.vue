@@ -1,14 +1,13 @@
 <template>
     <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
-        <div>
-            <h1 class="text-blue-600 text-4xl text-center font-bold mt-6">{{ event.data.name }}</h1>
+    <div class="flex flex-col items-center min-h-screen">
+        <h1 class="text-blue-600 text-4xl text-center font-bold mt-6">{{ event.data.name }}</h1>
 
-            <Gallery :images="images" :event="event" :show-trash-bin="false" class=" flex items-center min-h-screen" style="transform: scale(0.8);" />       
+        <Gallery :images="images" :event="event" :show-trash-bin="false" :imageWidth="'w-96'" :imageHeight="'h-80'"
+            class="my-10" />
 
-                <Details :event="event" />
-
-        </div>
-
+        <Details :event="event" />
+    </div>
 </template>
 
 <script setup>
@@ -30,6 +29,7 @@ onMounted(async () => {
         console.error('Error fetching authentication state:', error);
     }
 });
+
 defineProps({
     event: {
         type: Object,
