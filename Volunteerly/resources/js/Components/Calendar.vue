@@ -1,32 +1,29 @@
 <template>
-    <div class="flex flex-col items-center">
-        <div class="w-full overflow-auto h-[16vh]">
-            <table class="min-w-full">
-                <!-- First row: Month abbreviations -->
-                <tr>
-                    <td v-for="(abbreviation, index) in monthAbbreviations" :key="index"
-                        class="text-center px-4 py-1 bg-blue-500 border-4 border-white">
-                        <p class="text-white text-sm">{{ abbreviation }}</p>
-                    </td>
-                </tr>
-                <!-- Second row: Checkmarks -->
-                <tr>
-                    <td v-for="(abbreviation, index) in monthAbbreviations" :key="'checkmark-' + index"
-                        class="text-center border-white">
-                        <p v-if="eventMonths.includes(abbreviation)" class="text-white text-2xl bg-green-400 ">✓
-                        </p>
-                    </td>
-                </tr>
-            </table>
+    <div class="flex flex-col items-center p-4">
+        <div class="w-full overflow-auto">
+            <!-- Responsive grid container -->
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-2">
+                <div v-for="(abbreviation, index) in monthAbbreviations" :key="index" class="text-center">
+                    <!-- Month abbreviation -->
+                    <div class="p-2 bg-blue-500 border-2 border-white">
+                        <p class="text-white text-xs sm:text-sm">{{ abbreviation }}</p>
+                    </div>
+                    <!-- Checkmark or placeholder -->
+                    <div class="border-white mt-1">
+                        <p v-if="eventMonths.includes(abbreviation)"
+                            class="text-white text-2xl bg-green-400 border-2 border-white">✓</p>
+                        <p v-else class="invisible">✓</p> <!-- Invisible placeholder for alignment -->
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="flex justify-center items-center ">
+        <div class="flex justify-center items-center mt-4">
             <fwb-button class="mr-4" @click="previousYear">←</fwb-button>
             <span>{{ currentYear }}</span>
             <fwb-button class="ml-4" @click="nextYear">→</fwb-button>
         </div>
     </div>
 </template>
-
 <script setup>
 import { computed, ref } from 'vue';
 import { FwbButton } from 'flowbite-vue';
@@ -38,23 +35,11 @@ const props = defineProps({
     },
 });
 
-// Define an array of month abbreviations
 const monthAbbreviations = [
-    "Led", // Leden (January)
-    "Úno", // Únor (February)
-    "Bře", // Březen (March)
-    "Dub", // Duben (April)
-    "Kvě", // Květen (May)
-    "Čer", // Červen (June)
-    "Čvc", // Červenec (July)
-    "Srp", // Srpen (August)
-    "Zář", // Září (September)
-    "Říj", // Říjen (October)
-    "Lis", // Listopad (November)
-    "Pro" // Prosinec (December)
+    "Led", "Úno", "Bře", "Dub", "Kvě", "Čer",
+    "Čvc", "Srp", "Zář", "Říj", "Lis", "Pro"
 ];
 
-// Calculate the range of months of the event
 const eventMonths = computed(() => {
     const startMonth = new Date(props.event.data.dateStart).getMonth();
     const endMonth = new Date(props.event.data.dateEnd).getMonth();
@@ -75,7 +60,6 @@ const eventMonths = computed(() => {
 });
 
 const currentYear = ref(new Date().getFullYear());
-// Methods to navigate between years
 const nextYear = () => currentYear.value++;
 const previousYear = () => currentYear.value--;
 </script>

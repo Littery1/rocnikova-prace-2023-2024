@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center min-h-screen">
         <h1 class="text-blue-600 text-4xl text-center font-bold mt-6">{{ event.data.name }}</h1>
 
-        <Gallery :images="images" :event="event" :show-trash-bin="false" :imageWidth="'w-96'" :imageHeight="'h-80'"
+        <Gallery :images="images" :event="event" :show-trash-bin="false" :imageWidth="'w-96'" :imageHeight="'h-72'"
             class="my-10" />
 
         <Details :event="event" />
