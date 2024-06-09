@@ -60,8 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 
     Route::get('/upload-images', [UploadImagesController::class, 'index'])->name('uploadImages.index');
-    Route::post('/upload-images_upload', [UploadImagesController::class, 'upload'])->name('UploadImages.upload');
-    Route::post('/upload-temp-images', [UploadTemporaryImagesController::class, 'upload'])->name('UploadTemporaryImages.upload');
+    Route::post('/upload-images_upload/{event}', [UploadImagesController::class, 'upload'])->name('UploadImages.upload');
+    Route::post('/upload-temp-images/{event}', [UploadTemporaryImagesController::class, 'upload'])->name('UploadTemporaryImages.upload');
     Route::delete('/revert/{folder}', [DeleteTemporaryImagesController::class, 'delete'])->name('DeleteTemporaryImages.delete');
 
 });

@@ -10,13 +10,16 @@ use Illuminate\Support\Facades\File;
 class DeleteTemporaryImagesController extends Controller
 {
     public function delete(Request $request)
-    {        
-            $temporaryImage = TemporaryImages::where('folder', $request->folder)->first();
+    {   
+        $temporaryImage = TemporaryImages::where('folder', $request->folder)->first();
 
-            $path = 'images/tmp/' . $temporaryImage->folder;
+        if ($temporaryImage) {
+            $path = public_path('images/tmp/' . $temporaryImage->folder);
+
             File::deleteDirectory($path);
             $temporaryImage->delete();
-        
+        }
+
         return '';
     }
 }

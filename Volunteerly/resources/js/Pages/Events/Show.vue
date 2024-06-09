@@ -1,6 +1,5 @@
 <template>
     <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
-
         <div>
             <h1 class="text-blue-600 text-4xl text-center font-bold mt-6">{{ event.data.name }}</h1>
 

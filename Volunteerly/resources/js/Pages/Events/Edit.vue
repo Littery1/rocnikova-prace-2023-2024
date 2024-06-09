@@ -1,4 +1,5 @@
 <template>
+
     <Head title="Upravení akce" />
 
     <AuthenticatedLayout>
@@ -13,7 +14,7 @@
                     <Gallery :images="images" :show-trash-bin="true" />
                 </div>
                 <div class=" w-7/12 pb-4">
-                    <UploadImages :event="event" :images="images" />
+                    <UploadImages :event="event" :images="images" type="plain" />
                 </div>
             </div>
         </div>

@@ -18,57 +18,16 @@
                 </svg>
             </button>
         </div>
-        <div class=" flex flex-wrap m-2">
-            <div class="flex w-1/2 flex-wrap">
-                <div class="w-1/2 p-1 md:p-2 relative">
-                    <!-- Trash Can Icon Link -->
-                    <div class="absolute top-0 left-0 mt-2 ml-2" @click="deleteImage(image1.id)"
-                        v-if="props.showTrashBin">
+        <div class="flex flex-wrap justify-center m-2">
+            <div class="grid grid-cols-3 gap-4">
+                <div v-for="image in visibleImages" :key="image.id" class="relative">
+                    <div class="absolute top-0 left-0 mt-2 ml-2" @click="deleteImage(image.id)"
+                        v-if="showTrashBin && image">
                         <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
                     </div>
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path1" />
-                </div>
-                <div class="w-1/2 p-1 md:p-2 relative">
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path2" />
-                    <!-- Trash Can Icon Link -->
-                    <div class="absolute top-0 left-0 mt-2 ml-2" @click.prevent="deleteImage(image2.id)"
-                        v-if="props.showTrashBin">
-                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
-                    </div>
-                </div>
-                <div class="w-full p-1 md:p-2 relative">
-                    <!-- Trash Can Icon Link -->
-                    <div class="absolute top-0 left-0 mt-2 ml-2" @click.prevent="deleteImage(image3.id)"
-                        v-if="props.showTrashBin">
-                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
-                    </div>
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path3" />
-                </div>
-            </div>
-            <div class="flex w-1/2 flex-wrap relative">
-                <div class="w-full p-1 md:p-2">
-                    <!-- Trash Can Icon Link -->
-                    <div class="absolute top-0 left-0 mt-2 ml-2" @click.prevent="deleteImage(image4.id)"
-                        v-if="props.showTrashBin">
-                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
-                    </div>
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path4" />
-                </div>
-                <div class="w-1/2 p-1 md:p-2 relative">
-                    <!-- Trash Can Icon Link -->
-                    <div class="absolute top-0 left-0 mt-2 ml-2" @click.prevent="deleteImage(image5.id)"
-                        v-if="props.showTrashBin">
-                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
-                    </div>
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path5" />
-                </div>
-                <div class="w-1/2 p-1 md:p-2 relative">
-                    <!-- Trash Can Icon Link -->
-                    <div class="absolute top-0 left-0 mt-2 ml-2" @click.prevent="deleteImage(image6.id)"
-                        v-if="props.showTrashBin">
-                        <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
-                    </div>
-                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center" :src="path6" />
+                    <img v-if="image" alt="gallery"
+                        class="block object-fill w-44 h-44 rounded-lg object-center"
+                        :src="formatImagePath(image.path)" />
                 </div>
             </div>
         </div>
@@ -76,9 +35,8 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
-import { ref } from 'vue';
-import { useForm } from '@inertiajs/vue3';
+import { ref, computed } from 'vue';
+import { useForm } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
     images: {
@@ -90,6 +48,7 @@ const props = defineProps({
         default: true,
     },
 });
+
 const deleteForm = useForm({});
 
 const deleteImage = (imageId) => {
@@ -97,71 +56,62 @@ const deleteImage = (imageId) => {
         deleteForm.delete(route('images.destroy', imageId), {
             onSuccess: () => {
                 Images.value = Images.value.filter(image => image.id !== imageId);
-                updatePaths();
             },
             onError: (errors) => {
                 console.error("Failed to delete image:", errors);
-            }
+            },
         });
     }
 };
 
-
-const Images = ref(Object.values(props.images));
+const Images = ref(props.images);
+const imagesArray = computed(() => Object.values(Images.value));
 let startIndex = ref(0);
 
-const image1 = ref(Images.value[startIndex.value] || null);
-const image2 = ref(Images.value[startIndex.value + 1] || null);
-const image3 = ref(Images.value[startIndex.value + 2] || null);
-const image4 = ref(Images.value[startIndex.value + 3] || null);
-const image5 = ref(Images.value[startIndex.value + 4] || null);
-const image6 = ref(Images.value[startIndex.value + 5] || null);
-
-
-const path1 = ref(Images.value[startIndex.value]?.path || '');
-const path2 = ref(Images.value[startIndex.value + 1]?.path || '');
-const path3 = ref(Images.value[startIndex.value + 2]?.path || '');
-const path4 = ref(Images.value[startIndex.value + 3]?.path || '');
-const path5 = ref(Images.value[startIndex.value + 4]?.path || '');
-const path6 = ref(Images.value[startIndex.value + 5]?.path || '');
+const visibleImages = computed(() => imagesArray.value.slice(startIndex.value, startIndex.value + 6));
 
 const next = () => {
-    if (startIndex.value + 6 < Images.value.length) {
+    if (startIndex.value + 6 < imagesArray.value.length) {
         startIndex.value += 6;
-        updatePaths();
     }
 };
 
 const previous = () => {
     if (startIndex.value - 6 >= 0) {
         startIndex.value -= 6;
-        updatePaths();
     }
 };
 
-const updatePaths = () => {
-    let images = Images.value.slice(startIndex.value, startIndex.value + 6);
-    if (images.length < 6) {
-        let prevImages = Images.value.slice(0, startIndex.value).reverse();
-        while (images.length < 6 && prevImages.length > 0) {
-            images.unshift(prevImages.shift());
-        }
+const formatImagePath = (path) => {
+    if (path.startsWith('C:')) {
+        // Adjust the path to be relative to the public directory
+        return path.replace(/^.*\\public\\/, '/');
     }
-
-    [image1.value, image2.value, image3.value, image4.value, image5.value, image6.value] = images;
-
-    [path1.value, path2.value, path3.value, path4.value, path5.value, path6.value] = images.map(image => image?.path || '');
+    return path;
 };
-
-    
-updatePaths();
-
-
 </script>
 
-<style>
+<style scoped>
 .arrow-btn:hover .arrow-icon {
     transform: scale(1.2);
     transition: transform 0.3s ease;
+}
+
+.image-container {
+    width: 100%;
+    padding-bottom: 75%;
+    /* Aspect ratio: 4:3 */
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    /* Optional: For rounded corners */
+}
+
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 </style>
