@@ -56,7 +56,7 @@ class UploadImagesController extends Controller
             $temporaryImage->delete();
         }
 
-        return back();
+        return '';
     }
 
 }

@@ -10,6 +10,7 @@ class ImageController extends Controller
     public function destroy(Image $image)
     {
         $image->delete();
-        return back();
-    }   
+        return '';
+    }
+  
 }

@@ -26,7 +26,7 @@
                         <img alt="Trash Can" class="w-5 h-auto" src="/images/TrashCan.png">
                     </div>
                     <img v-if="image" alt="gallery"
-                        class="block object-fill w-44 h-44 rounded-lg object-center"
+                        class="block object-fil w-44 h-44 rounded-lg object-center"
                         :src="formatImagePath(image.path)" />
                 </div>
             </div>
