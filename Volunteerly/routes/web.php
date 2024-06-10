@@ -56,9 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/events/{event}', [EventController::class, 'update'])->name('event.update');
     Route::delete('/my-events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
-
     Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
-
     Route::get('/upload-images', [UploadImagesController::class, 'index'])->name('uploadImages.index');
     Route::post('/upload-images_upload/{event}', [UploadImagesController::class, 'upload'])->name('UploadImages.upload');
     Route::post('/upload-temp-images/{event}', [UploadTemporaryImagesController::class, 'upload'])->name('UploadTemporaryImages.upload');
