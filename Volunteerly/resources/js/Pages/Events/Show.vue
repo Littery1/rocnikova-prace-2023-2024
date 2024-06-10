@@ -6,7 +6,7 @@
         <Gallery :images="images" :event="event" :show-trash-bin="false" :imageWidth="'w-96'" :imageHeight="'h-72'"
             class="my-10" />
 
-        <Details :event="event" />
+        <Details :event="event" :images="images" :events="events"/>
     </div>
 </template>
 
@@ -32,6 +32,10 @@ onMounted(async () => {
 
 defineProps({
     event: {
+        type: Object,
+        required: true,
+    },
+    events: {
         type: Object,
         required: true,
     },

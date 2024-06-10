@@ -59,11 +59,11 @@
         <div
             class=" w-[30vw] md:ml-[1vw] md:mr-[5vw] bg-white rounded-xl border border-gray-300 shadow-sm overflow-auto">
 
-            <div class="flex items-center m-5">
-                <h2 class="text-xl ml-2 text-blue-500 font-bold m-5">Profil hostitele</h2>
+            <div class="flex items-center mt-5">
+                <h2 class="text-xl  text-blue-500 font-bold ml-44">Další události</h2>
             </div>
-            <div class="flex items-center m-5">
-                <p>{{ event.data.user.name }}</p>
+            <div class="flex items-center ml-28">
+                <DisplayEvents :events="events" :images="images" :event="event" rows="2" />
             </div>
         </div>
     </div>
@@ -79,6 +79,7 @@ import ShowEvent from '@/Components/Maps/ShowEvent.vue';
 import { Comments } from '@hyvor/hyvor-talk-vue';
 import Calendar from '@/Components/Calendar.vue';
 import VueScrollTo from 'vue-scrollto';
+import DisplayEvents from '@/Components/DisplayEvents.vue';
 
 
 const currentUrl = window.location.href;
@@ -87,7 +88,16 @@ defineProps({
         type: Object,
         required: true,
     },
+    events: {
+        type: Object,
+        required: true,
+    },
+    images: {
+        type: Object,
+        required: true,
+    },
 });
+
 
 
 const formatDate = (dateString) => {

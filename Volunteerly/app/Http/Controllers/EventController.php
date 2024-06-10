@@ -89,11 +89,13 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
+        $events = EventResource::collection(Event::paginate(12));
         $images = $event->image;
 
 
         return inertia('Events/Show', [
             'event' => new EventResource($event),
+            'events' => $events,
             'images' => $images,
         ]);
     }
