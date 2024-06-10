@@ -1,5 +1,6 @@
 <template >
     <div class="bg-gray-100">
+
         <Head title="Welcome" />
 
         <link rel="icon" href="/images/Logo.png" type="image/png">

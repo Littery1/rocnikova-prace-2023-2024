@@ -1,10 +1,10 @@
 <template>
-    
+    PP
     <div class="flex items-center justify-center min-h-screen">
         <div class="container mx-auto p-6">
             <div v-bind:class="{
                 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-screen-lg mx-auto': rows === 1,
-                'gap-4 max-w-screen-lg mx-auto': rows === 2
+                'grid grid-cols-1 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-screen-lg mx-auto': rows === 2
             }">
                 <template v-if="rows === 1">
                     <div v-for="(event, index) in events.data.sort((a, b) => a.id - b.id)" :key="event.id"
@@ -35,7 +35,6 @@
                     </div>
                 </template>
                 <template v-if="rows === 2">
-                    
                     <div v-for="(event, index) in events.data.sort((a, b) => a.id - b.id).slice(0, 6)" :key="event.id"
                         class="rounded-lg overflow-hidden">
                         <InertiaLink :href="'/event' + event.id">
@@ -91,7 +90,7 @@ const props = defineProps({
         required: true,
     },
     rows: {
-        type: Number,
+        type: String,
         required: false,
         default: 1,
     },
