@@ -52,7 +52,10 @@ const form = useForm({
 });
 
 function handleSubmit() {
-    Inertia.post(route('UploadImages.upload', { type: props.type, event: props.event.data.id, images: form.images }));
+    Inertia.post(route('UploadImages.upload', { type: props.type, event: props.event.data.id, images: form.images }), {
+        preserveScroll: true,
+        preserveState: true
+    });
 }
 
 function handleFilePondLoad(response) {
@@ -63,7 +66,9 @@ function handleFilePondLoad(response) {
 function handleFilePondRevert(uniqueId, load, error) {
     form.images = form.images.filter(image => image !== uniqueId);
     Inertia.delete('/revert/' + uniqueId, {
-        onFinish: load
+        onFinish: load,
+        preserveScroll: true,
+        preserveState: true
     });
 }
 </script>

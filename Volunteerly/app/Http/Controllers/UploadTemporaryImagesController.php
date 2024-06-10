@@ -6,6 +6,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\TemporaryImages;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class UploadTemporaryImagesController extends Controller
 {
@@ -25,6 +26,6 @@ class UploadTemporaryImagesController extends Controller
  
             return $folder;
         }
-        return '';
+        return Redirect::back();;
     }
 }

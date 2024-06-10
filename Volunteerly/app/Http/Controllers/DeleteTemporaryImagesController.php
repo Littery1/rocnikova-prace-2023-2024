@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TemporaryImages;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
 
 class DeleteTemporaryImagesController extends Controller
 {
@@ -20,6 +21,6 @@ class DeleteTemporaryImagesController extends Controller
             $temporaryImage->delete();
         }
 
-        return '';
-    }
+        return Redirect::back();
+        }
 }
