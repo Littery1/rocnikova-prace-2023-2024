@@ -4,7 +4,7 @@
 
         <link rel="icon" href="/images/Logo.png" type="image/png">
         <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
-        <DisplayEvents :events="events" :images="images" />
+        <DisplayEvents :events="events" :images="images" :rows="one"/>
     </div>
 </template>
 <script setup>
@@ -16,6 +16,7 @@ import axios from 'axios';
 import DisplayEvents from '@/Components/DisplayEvents.vue';
 const isAuthenticated = ref(false);
 
+const one = 1;
 onMounted(async () => {
     try {
         const response = await axios.get('/api/authenticated');

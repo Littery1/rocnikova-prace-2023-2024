@@ -25,9 +25,14 @@
                             Hodnocení</h2>
                     </div>
                 </div>
-                <div class="flex items-center cursor-pointer mt-4 md:mt-0" style="margin-right: 10vw;">
-                    <fwb-img class=" w-[2.5vw] md:w-[2.5vw]" src="/images/Mail.png" />
-                    <h3 class="text-2xl font-bold text-blue-700 ml-2">Kontakt</h3>
+                <div>
+                    <p v-if="copied" class="text-green-500">Zkopírováno do schránky</p>
+                    <div class="flex items-center cursor-pointer mt-4 md:mt-0" style="margin-right: 10vw;"
+                        @click="copyEmail(event.data.user.email)">
+                        <fwb-img class="w-[2.5vw] md:w-[2.5vw]" src="/images/Mail.png" />
+                        <h3 class="text-2xl font-bold text-blue-700 ml-2">Kontakt:</h3>
+                        <h3 class="text-sm font-bold text-blue-700 ml-2">{{ event.data.user.email }}</h3>
+                    </div>
                 </div>
             </div>
 
@@ -63,7 +68,7 @@
                 <h2 class="text-xl  text-blue-500 font-bold ml-44">Další události</h2>
             </div>
             <div class="flex items-center ml-28">
-                <DisplayEvents :events="events" :images="images" :event="event" rows="2" />
+                <DisplayEvents :events="events" :images="images" :event="event" :rows="two" />
             </div>
         </div>
     </div>
@@ -80,9 +85,21 @@ import { Comments } from '@hyvor/hyvor-talk-vue';
 import Calendar from '@/Components/Calendar.vue';
 import VueScrollTo from 'vue-scrollto';
 import DisplayEvents from '@/Components/DisplayEvents.vue';
+import { ref } from 'vue';
 
-
+const two = 2;
 const currentUrl = window.location.href;
+const copied = ref(false);
+const copyEmail = (email) => {
+    navigator.clipboard.writeText(email).then(() => {
+        copied.value = true;
+        setTimeout(() => {
+            copied.value = false;
+        }, 2000);
+    }).catch(err => {
+        console.error('Nepodařilo se zkopírovat email: ', err);
+    });
+};
 defineProps({
     event: {
         type: Object,
