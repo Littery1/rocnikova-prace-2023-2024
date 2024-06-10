@@ -1,10 +1,12 @@
 <template >
     <div class="bg-gray-100">
+
         <Head title="Welcome" />
 
         <link rel="icon" href="/images/Logo.png" type="image/png">
         <component :is="isAuthenticated ? NavbarAuthorized : NavbarUnauthorized" />
-        <DisplayEvents :events="events" :images="images" :rows="one"/>
+        <fwb-heading tag="h1" class="text-3xl font-semibold m-4 text-center p-2">Události</fwb-heading>
+        <DisplayEvents :events="events" :images="images" :rows="one" />
     </div>
 </template>
 <script setup>
@@ -14,6 +16,9 @@ import NavbarAuthorized from '@/Components/Navbar/NavbarAuthorized.vue';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import DisplayEvents from '@/Components/DisplayEvents.vue';
+import { FwbImg, FwbHeading } from 'flowbite-vue'
+
+
 const isAuthenticated = ref(false);
 
 const one = 1;

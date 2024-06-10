@@ -88,7 +88,7 @@ const props = defineProps({
     },
     event: {
         type: Object,
-        required: true,
+        required: false,
     },
     rows: {
         type: Number,
